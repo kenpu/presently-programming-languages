@@ -7,8 +7,11 @@ dev:
 	mkdir -p ./www
 	$(PRESENTLY)/presently
 
-deploy:
+compile:
 	mkdir -p ./www
 	rm -rf ./www/static
 	$(PRESENTLY)/presently -compile
 	cp -LR $(PRESENTLY)/resources ./www/static
+
+upload:
+	$(PRESENTLY)/upload.sh ./www
