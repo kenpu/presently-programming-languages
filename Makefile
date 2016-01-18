@@ -13,5 +13,8 @@ compile:
 	$(PRESENTLY)/presently -compile
 	cp -LR $(PRESENTLY)/resources ./www/static
 
+clean:
+	rm -rf ./www/*
+
 upload:
 	$(PRESENTLY)/upload.sh ./www

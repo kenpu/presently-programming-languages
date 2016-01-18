@@ -1,0 +1,411 @@
+{
+    "type": "article",
+    "source": "More on Types",
+    "children": [
+        {
+            "type": "page",
+            "source": "Review",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 0 0",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "css:\n  color: blue\n  textAlign: right\n..............\nAn imaginary syntax",
+                                    "uuid": "0bf57525-fdbd-47c8-9518-ce51c737aaa8",
+                                    "version": -1
+                                },
+                                {
+                                    "type": "code",
+                                    "source": ".......................\nScalar : Integer\n       | Float\n       | String\n       | ...",
+                                    "uuid": "28de5929-7873-4851-a829-b38942ad2003",
+                                    "version": -1
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "....................\nType : Scalar\n     | List[Type]\n     | Map[Type to Type]\n     | Tuple[Type, Type, ...]\n     | Union[Type, Type, ...]\n     | Record[<field>:Type, <field>:Type, ...]\n",
+                                    "uuid": "10c33ba3-1865-4630-a38a-a73db269be0f",
+                                    "version": -1
+                                }
+                            ],
+                            "uuid": "cb694815-d425-414a-a526-a40334706355",
+                            "version": -1
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "css:\n  color: gray\n...............\nCan you give a few examples of types that can be built from this type system?",
+                                    "uuid": "45f3494a-a01a-483b-9b22-c81f12675e79",
+                                    "version": -1
+                                }
+                            ],
+                            "uuid": "7d70050d-36c9-4d9e-b6c1-a11dcc0ec746",
+                            "version": -1
+                        }
+                    ],
+                    "uuid": "f1edb52a-7816-4df3-a945-60764dbe068a",
+                    "version": -1
+                }
+            ],
+            "uuid": "26e2c748-bf6e-4112-b849-c69288edbfad",
+            "version": -1
+        },
+        {
+            "type": "page",
+            "source": "Functional Types",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "Parameter passing into functions",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 0",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Type system needs to have the expressiveness to describe functions:\n\n- Input arity + types of individual parameters\n- Output arity + types of individual output values",
+                                    "uuid": "ff47c325-0280-4b17-b1eb-031318db2690",
+                                    "version": -1
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "~~~\nFunc[Type, Type, ... -> Type, Type, ...]\n~~~\n\nWhat happens when we add this to the type system.",
+                                    "uuid": "21545829-8549-4be3-9d10-9eb990db0cd3",
+                                    "version": 7
+                                }
+                            ],
+                            "uuid": "82989ae3-0bf0-470a-bc01-b0ce43ea648f",
+                            "version": 14
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 0 0",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "css:\n  color: blue\n  textAlign: right\n..............\nAn imaginary syntax",
+                                    "uuid": "1471fb3b-eab5-4ec1-a573-179fba4fed42",
+                                    "version": -1
+                                },
+                                {
+                                    "type": "code",
+                                    "source": ".......................\nScalar : Integer\n       | Float\n       | String\n       | ...",
+                                    "uuid": "d20b5a75-3226-477a-b24d-80060eb3437d",
+                                    "version": -1
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "<pre>\nType : Scalar\n     | List[Type]\n     | Map[Type to Type]\n     | Tuple[Type, Type, ...]\n     | Union[Type, Type, ...]\n     | Record[&lt;field>:Type, &lt;field>:Type, ...]\n     | <b>Func[Type, Type, ... -> Type, Type, ...]</b>\n</pre>",
+                                    "uuid": "99a056be-024a-43b2-93b4-abc1f7a1dd7c",
+                                    "version": 7
+                                }
+                            ],
+                            "uuid": "748a048f-8209-4e6d-adcd-44f0c94d6c43",
+                            "version": 7
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 2",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Some unexpected types becomes available.\n  > 1. Do they make sense?\n  > 2. Do we need them?",
+                                    "uuid": "4d9d6063-c97d-47e5-89db-24b0a2aa74f5",
+                                    "version": -1
+                                },
+                                {
+                                    "type": "box",
+                                    "layout": "vertical",
+                                    "source": "",
+                                    "children": [
+                                        {
+                                            "type": "box",
+                                            "layout": "horizontal",
+                                            "source": "",
+                                            "children": [
+                                                {
+                                                    "type": "box",
+                                                    "layout": "horizontal",
+                                                    "source": "w: 3 2",
+                                                    "children": [
+                                                        {
+                                                            "type": "markdown",
+                                                            "source": "```\nFunc[List[Int] -> Int]\n```\n\n",
+                                                            "uuid": "ce4bbf51-2c0f-40a5-8c40-0a0db96b9415",
+                                                            "version": 21
+                                                        },
+                                                        {
+                                                            "type": "markdown",
+                                                            "source": "> A function that aggregates a list of integers to an integer\n",
+                                                            "uuid": "f33057af-ed46-4a7b-9a5a-853cc7cbe221",
+                                                            "version": -1
+                                                        }
+                                                    ],
+                                                    "uuid": "cee9d96c-0d3e-4b15-a213-572060befe4b",
+                                                    "version": 33
+                                                }
+                                            ],
+                                            "uuid": "c8950dbe-dbdb-4dcd-8a1b-9e6edbaca82b",
+                                            "version": 46
+                                        },
+                                        {
+                                            "type": "box",
+                                            "layout": "horizontal",
+                                            "source": "w: 3 2",
+                                            "children": [
+                                                {
+                                                    "type": "markdown",
+                                                    "source": "```\nList[Func[Int,Int->Int]]\n```\n",
+                                                    "uuid": "35865aca-9bcb-4ed7-bb52-14fc6f869389",
+                                                    "version": 21
+                                                },
+                                                {
+                                                    "type": "markdown",
+                                                    "source": "> A list of functions",
+                                                    "uuid": "05f4a462-98f7-4074-a7c7-6029302c54f4",
+                                                    "version": 26
+                                                }
+                                            ],
+                                            "uuid": "53c3f4da-26d5-4f55-867e-cb7bee6e0829",
+                                            "version": 48
+                                        },
+                                        {
+                                            "type": "box",
+                                            "layout": "horizontal",
+                                            "source": "w: 3 2",
+                                            "children": [
+                                                {
+                                                    "type": "markdown",
+                                                    "source": "```\nRecord[\n  add: (Func[Int,Int->Int],\n  mult: (Func[Int,Int->Int])\n]\n```",
+                                                    "uuid": "6c18299d-c5db-4947-be5d-dd934d16c6dd",
+                                                    "version": 15
+                                                },
+                                                {
+                                                    "type": "markdown",
+                                                    "source": "> Looks like a class now...",
+                                                    "uuid": "08aee0c1-0e71-45e4-9956-2a9f4acb12a9",
+                                                    "version": 36
+                                                }
+                                            ],
+                                            "uuid": "1f8b2262-2a18-4e14-99a1-90c944ab6e14",
+                                            "version": 66
+                                        },
+                                        {
+                                            "type": "box",
+                                            "layout": "horizontal",
+                                            "source": "w: 3 2",
+                                            "children": [
+                                                {
+                                                    "type": "markdown",
+                                                    "source": "```\nFunc[Func[Int->Int], List[Int]]\n```",
+                                                    "uuid": "8a1a889a-1c35-4d8f-9576-62e79504e812",
+                                                    "version": 34
+                                                },
+                                                {
+                                                    "type": "markdown",
+                                                    "source": "> This function takes a function as an input",
+                                                    "uuid": "a154dc82-5683-48dc-b542-b762527145f6",
+                                                    "version": 99
+                                                }
+                                            ],
+                                            "uuid": "aa9891a1-cfb8-4429-b3f2-0ea1e8d95979",
+                                            "version": 134
+                                        }
+                                    ],
+                                    "uuid": "ab38bfb0-1321-46ee-9d07-67a669a5f17b",
+                                    "version": 303
+                                }
+                            ],
+                            "uuid": "7bb15953-36fe-4331-9910-9d1793cca498",
+                            "version": 303
+                        }
+                    ],
+                    "uuid": "6302133f-8db0-45f4-b81f-74457db3e3dd",
+                    "version": 326
+                }
+            ],
+            "uuid": "ee1c79a5-f973-4aef-af18-0467823b7821",
+            "version": 327
+        },
+        {
+            "type": "page",
+            "source": "Polymorphism",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "The need for polymorphism",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Type checking:\n  > Ensure that the input of a function agrees with its type.",
+                                    "uuid": "9d251309-d59e-4472-87b7-2401fa880d1e",
+                                    "version": 93
+                                }
+                            ],
+                            "uuid": "d7a8f48d-6faa-4b74-8c7c-a37a78760188",
+                            "version": 265
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Consider a function\n~~~\nmult: Float, Float -> Float\n~~~\n\nLet's build an expression:\n\n~~~\nmult(1, 3.1415)\n~~~",
+                                    "uuid": "ef49ac52-4bfd-4ff2-903a-b0a19998562c",
+                                    "version": 3
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "Is it a valid expression?\n\n- 1:Int, 3.1415:Float\n- Does _mult_ accept integers by its type signature?\n- It **should**.\n\n----\n\nWe need more mechanism for _mult_ to accept integers.",
+                                    "uuid": "ae243738-bb9a-4dee-b517-216239c055e9",
+                                    "version": 251
+                                }
+                            ],
+                            "uuid": "41cd10e4-90d3-4f8c-83f3-a3fcfea9715a",
+                            "version": 256
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "c: banner\n................\nPolymorphism:\n\n> \"A value can be treated as _different_ types.\"",
+                                    "uuid": "2478f03f-fad6-48a0-9716-7028a69dea50",
+                                    "version": 102
+                                }
+                            ],
+                            "uuid": "c4f39822-c687-463e-a360-e83867e2ffab",
+                            "version": 102
+                        }
+                    ],
+                    "uuid": "c41020f4-e099-4b09-91a9-3d562215e404",
+                    "version": 667
+                },
+                {
+                    "type": "section",
+                    "source": "math: 1\n...............\nPolymorphism by type hierarchy",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 1",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- `Int` can be _safely_ used as a float.\n  > ~~~\n    mult: Float, Float -> Float\n    mult(2,3.1415)\n    ~~~\n- But float cannot be used in place of integers.\n  > ~~~\n    remainder: Int, Int -> Int\n    remainder(3.1415, 2.5)\n    ~~~",
+                                    "uuid": "719bf03a-1652-457b-80e1-64e422dcc5a8",
+                                    "version": 284
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "- Two classes\n  ~~~\n  Person = Record[\n    name: string\n  ]\n  Student = Record[\n    name: string,\n    id: number\n  ]\n  ~~~\n- Student can be used in the place of a _person_.\n  But a person cannot be used in place of a _student_.",
+                                    "uuid": "20a3b825-78af-4adc-bf97-7462316d1a06",
+                                    "version": 400
+                                }
+                            ],
+                            "uuid": "864e0e77-244d-4f11-a1f8-0e8fc7a1a970",
+                            "version": 747
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- *Subtypes*:\n  > Given two types, $S$ and $T$.  If $S$ can _always_ be used in place of $T$, then we say that $S$ is a _subtype_ of $T$.  We write it as $S\\prec T$.\n",
+                                    "uuid": "292b6dfd-67df-4a4c-b0e2-379d9eec21af",
+                                    "version": 211
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "- `Int` $\\prec$ `Float`\n- `Student` $\\prec$ `Person`\n\n> Subtypes are:\n> 1. More specific information\n> 2. More constrained",
+                                    "uuid": "d6f31388-dedd-4aa7-9b9c-08211c0d24dc",
+                                    "version": 139
+                                }
+                            ],
+                            "uuid": "5b5122d7-1ed3-4a85-b413-0067249f93b0",
+                            "version": 352
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "If we organize all the types into a _hierarchy_, the supertypes are at the top, and subtypes are descendents of the supertypes.",
+                                    "uuid": "9eac4d66-bcce-48b1-927d-97e6d4e57b7c",
+                                    "version": 198
+                                },
+                                {
+                                    "type": "image",
+                                    "source": "",
+                                    "data": "data:image/png;base64,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",
+                                    "uuid": "16a2852a-a027-4062-8a0b-c1878448da02",
+                                    "version": -1
+                                }
+                            ],
+                            "uuid": "605041b1-eb79-4456-9d7c-14e492c7c4f4",
+                            "version": 198
+                        }
+                    ],
+                    "uuid": "69b091ec-003a-41f4-9170-99bf1d0f7b81",
+                    "version": 1360
+                },
+                {
+                    "type": "section",
+                    "source": "Generic types and subtyping",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "c: banner\n...............\nTo be discussed in class...",
+                                    "uuid": "3e307aea-b230-42a1-82cb-aeb1f1e02478",
+                                    "version": 58
+                                }
+                            ],
+                            "uuid": "56b02542-28cb-4778-b53b-1c447cb6dddd",
+                            "version": 58
+                        }
+                    ],
+                    "uuid": "da7a486d-6ffb-4d66-bf0e-d4eb497689b1",
+                    "version": 88
+                }
+            ],
+            "uuid": "aeb4c02f-f636-42cf-88e5-e11bf6d340e7",
+            "version": 2150
+        }
+    ],
+    "uuid": "64dff925-0f1b-494a-8ccf-139c154fd796",
+    "modified": true,
+    "version": 2478,
+    "history": 6
+}
