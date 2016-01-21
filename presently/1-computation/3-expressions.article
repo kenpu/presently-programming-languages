@@ -1,0 +1,105 @@
+{
+    "type": "article",
+    "source": "Instantiation",
+    "children": [
+        {
+            "type": "page",
+            "source": "About",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "c: narrow center\n...................\nIn this section, we want to discuss different ways we can create instances.",
+                                    "uuid": "fc10ab7d-cbc4-4204-9505-8424072ba20b",
+                                    "version": 9
+                                }
+                            ],
+                            "uuid": "f6d2e27e-ac74-41bb-8c27-f6fcc54f0a97",
+                            "version": 9
+                        }
+                    ],
+                    "uuid": "db25d116-94ef-4709-9264-546371ea4dfe",
+                    "version": 9
+                }
+            ],
+            "uuid": "1aab8509-b62f-4801-8061-f84a10640b2f",
+            "version": 10
+        },
+        {
+            "type": "page",
+            "source": "Value Construction",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "Literals",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Literals are values that are specified as part of the program.",
+                                    "uuid": "c370cd50-a091-4a45-a996-5b75c40b49b2",
+                                    "version": 67
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "Typically, a programming language supports literal values for:\n\n> - scalar types: numerics and string\n- lists\n- maps\n- records\n- tuples",
+                                    "uuid": "d87535f2-e1cb-4c6d-93ec-0400682a5921",
+                                    "version": 178
+                                }
+                            ],
+                            "uuid": "25cbb810-dfaa-44e7-9d88-805658549bb6",
+                            "version": 247
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 2 2 1\n...........\nSome examples",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "c: wide\n...........\n~~~\n\"hello world\"\n3.1415\n1.0f\n42\n~~~",
+                                    "uuid": "a94f0280-9f95-44b3-b815-9d329d4660b1",
+                                    "version": 87
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "c: wide\n............\n~~~\n[1, 2, 3]\n\n{\n  \"hello\": 1.0,\n  \"world\": -1.0\n}\n~~~",
+                                    "uuid": "c5765b86-bac4-4f35-b26a-777d0ecc2ae6",
+                                    "version": 146
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "css:\n  color: blue\n......................\nThese are not the syntax of any language in particular.",
+                                    "uuid": "186d1b28-d891-46a1-8d17-b8358124bde4",
+                                    "version": 114
+                                }
+                            ],
+                            "uuid": "2a687ef0-bb39-4d9e-9ff5-e80bfbe3b676",
+                            "version": 386
+                        }
+                    ],
+                    "uuid": "1ba7b983-bd5f-4c38-a587-fee1ca2bebad",
+                    "version": 673
+                }
+            ],
+            "uuid": "b3ba2218-66af-40a4-9a83-e47b7b86719b",
+            "version": 794
+        }
+    ],
+    "uuid": "55d7a001-9471-45c0-87ed-d88f367a46cc",
+    "modified": true,
+    "version": 815,
+    "history": 6
+}
