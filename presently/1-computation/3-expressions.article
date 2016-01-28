@@ -1,6 +1,6 @@
 {
     "type": "article",
-    "source": "From Types to Computation",
+    "source": "noLabel: \n...........\nFrom Types to Computation",
     "children": [
         {
             "type": "page",
@@ -106,17 +106,17 @@
                                     "type": "markdown",
                                     "source": "- Symbols can be declared.\n- They are _aliases_ to data.\n\n*****\n\n> <note /> A *binding* is a mapping of a symbol to the piece of *typed* data that it represents.\n\n",
                                     "uuid": "bf6af92c-2e8e-419a-9367-cfb376ff50f4",
-                                    "version": 0
+                                    "version": 2
                                 },
                                 {
                                     "type": "markdown",
-                                    "source": "*Examples*\n~~~\nx = 3:Int\ny = [1,2,3]:List[Float]\n~~~\n\n- The symbol `x` is bound to the value `3:Int`.\n- There are two bindings declared.",
+                                    "source": "*Examples*\n~~~\nx = 3:Int\ny = [1,2,3]:List[Float]\n~~~\n\n- The symbol `x` is bound to the value `3:Int`.\n- There are two symbols declared and bound to values.",
                                     "uuid": "9781d8d4-4bfb-45e7-8aeb-314c8428d91f",
-                                    "version": 0
+                                    "version": 50
                                 }
                             ],
                             "uuid": "f8d4c28e-1199-4873-aba3-ec1df06abeac",
-                            "version": 0
+                            "version": 52
                         },
                         {
                             "type": "box",
@@ -171,11 +171,11 @@
                         }
                     ],
                     "uuid": "78ae5762-98b1-4c87-b326-bbb07d9d9016",
-                    "version": 0
+                    "version": 52
                 }
             ],
             "uuid": "2698250b-0ec3-47db-bcaa-9797bc1e8969",
-            "version": 0
+            "version": 52
         },
         {
             "type": "page",
@@ -336,10 +336,130 @@
             ],
             "uuid": "bf5032b2-b8b1-487f-9f64-4b544bb2fb11",
             "version": 0
+        },
+        {
+            "type": "page",
+            "source": "Scopes",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "math: 1\n..............\nContext of expressions",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "> <note/> The _context_ of an expression $e$ is the collection of _bound_ symbols that can be used in the expression.",
+                                    "uuid": "96365e3c-3809-4887-b5c7-336ae33a5420",
+                                    "version": 213
+                                }
+                            ],
+                            "uuid": "10111686-3aa6-4c32-976b-3054cdec0c2d",
+                            "version": 215
+                        }
+                    ],
+                    "uuid": "96109da5-d1d5-4cad-a7b7-d8dafbc28a71",
+                    "version": 250
+                },
+                {
+                    "type": "section",
+                    "source": "math:\n..........\nScope of a symbol",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "The scope of a binding refers all the expression in which the symbol can be used in that binding.\n\nIn other words, the _scope_ of a symbol $x$ is all the expressions $e$ such that $x\\in\\mathrm{context}(e)$.",
+                                    "uuid": "125f2078-66d6-4277-af47-24d4459ce739",
+                                    "version": 284
+                                }
+                            ],
+                            "uuid": "51ae5002-9593-415c-b4e8-345a52c22383",
+                            "version": 286
+                        }
+                    ],
+                    "uuid": "01f01e36-93a3-4fd8-aa3a-439231b7f855",
+                    "version": 356
+                },
+                {
+                    "type": "section",
+                    "source": "math:\n.........\nScoping rule for functions",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 2 1",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Let a function $f$ be defined inside an expression $E_1$.\n- The body of $f$ has the following context:\n  1. It contains all the symbols which are the parameters of $f$.\n  2. It contains all the symbols declared inside the body of $f$.\n  3. It contains all the symbols from the context of $E_1$.",
+                                    "uuid": "81e50be1-1b2b-4b86-8603-d4c3c7798fca",
+                                    "version": 323
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "**Note**: function body inherits the context of the expression that defines the function.\n\nThis is called _lexical scoping_.",
+                                    "uuid": "71516274-a3d2-45d6-bd25-d671faa80c4c",
+                                    "version": 236
+                                }
+                            ],
+                            "uuid": "69cc1dd4-3e69-4bba-9d20-c1b626ebace0",
+                            "version": 570
+                        }
+                    ],
+                    "uuid": "a341076d-d57e-40b1-938d-c49312834762",
+                    "version": 616
+                }
+            ],
+            "uuid": "fe1750ce-54b2-4611-bf9c-8171287789e8",
+            "version": 1225
+        },
+        {
+            "type": "page",
+            "source": "Summary",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Expressions\n  - Values\n  - Functions\n",
+                                    "uuid": "4ec575b8-4b6e-49fe-8f27-941868cdbee7",
+                                    "version": 275
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "- Symbols\n  - Declaration\n  - Binding to expressions\n  - Resolution\n  - Rebinding\n- Scopes\n  - Context of expressions\n  - Lexical scoping",
+                                    "uuid": "ee65ba09-8eb7-47d2-9e59-01d5bb530d8d",
+                                    "version": 3
+                                }
+                            ],
+                            "uuid": "d29c7825-a8ac-4a6e-9209-6b4195422ee1",
+                            "version": 281
+                        }
+                    ],
+                    "uuid": "ca7d10df-99a8-4aaa-993c-9e52dda9251b",
+                    "version": 290
+                }
+            ],
+            "uuid": "a75fab7f-89b1-4080-9963-d513ae462186",
+            "version": 300
         }
     ],
     "uuid": "dbab3914-eeb6-48d0-a564-48ee578ffc36",
     "modified": true,
-    "version": 0,
-    "history": 3
+    "version": 1578,
+    "history": 6
 }

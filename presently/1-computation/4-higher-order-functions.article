@@ -1,0 +1,585 @@
+{
+    "type": "article",
+    "source": "draft:\n............\nFunctions & Higher Order Functions",
+    "children": [
+        {
+            "type": "page",
+            "source": "Outline",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "```\n- simple functions\n- pure function vs side-effects (as context)\n- control structures:\n  - iteration\n  - while loops\n  - if-else\n```",
+                                    "uuid": "ff64fee6-edff-46ae-92ef-e11fe12cf37e",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "```\n- higher order function\n- HOF vs control structures\n  - evaluation\n  - lazy evaluation\n- control structures as HOF\n```",
+                                    "uuid": "4c32398c-a1f5-4b31-b2f3-0a28e8645ab2",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "23a1f775-2733-4153-832f-ef21787e93b2",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "35273d05-16d9-4876-8072-b49c3ca845bf",
+                    "version": 0
+                }
+            ],
+            "uuid": "f08c1268-de73-44c5-95d3-23187ff22281",
+            "version": 0
+        },
+        {
+            "type": "page",
+            "source": "Defining functions",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "Simple definition",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Expressions that evaluate to functions\n- Specification of the input parameters\n- Specification of the return type\n- Specification of the body of the function\n  > Can make use of the function to the declared.",
+                                    "uuid": "fe65134a-cacd-4b07-859a-36922c91cf16",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "27683e94-68ed-462e-8027-5829d7ac3307",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Scala.\n\n1. Declaration of a symbol\n2. Binding it to a function expression",
+                                    "uuid": "cfb6018a-d05a-4fbf-a001-ca3330c3cecd",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n...............\ndef factorial(n:Int):Int = {\n  if(n <= 1)\n    1\n  else\n    factorial(n-1) * n\n}",
+                                    "uuid": "996990c9-0ee5-40ac-a7ba-1fb185c0f943",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "92cbb231-3e1d-4dae-bd95-eda8d1ee1d2d",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Scala.\n\nAnother way of defining a function with less syntactic sugar.\n\n1. We are using an expression that evaluates to a function.",
+                                    "uuid": "74e97929-7288-4ad0-b702-24f7288b4af6",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n...............\nval factorial : Int => Int = {\n  i => {\n    if(i <= 2) 1 else factorial(i-1) * i\n  }\n}",
+                                    "uuid": "53dd4cd2-4e0b-45a9-bd9e-8383e72d9552",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "0c2c95ee-178e-48bd-b5a5-0626c9c82b58",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "b1cb4f85-110e-4cda-b6a9-60cc0b8a4717",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "..............\nCurrying: function as output",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 2",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Functions as values is _powerful_.\n- Functions can return functions.",
+                                    "uuid": "2dc1c710-2cfe-4f16-983b-d1467f72210a",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "> <note/>\n> _Currying:_\n> \n> We convert multi-argument function to a chain of single-argument functions. ",
+                                    "uuid": "d46bb3f9-ffbf-4a08-a0a9-8282d8edfe2e",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "3cd9c4dd-f680-4a35-b74a-474e27839565",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 2",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Scala\n\nA function with three arguments",
+                                    "uuid": "fd0c25b0-8351-4e6a-a9db-e7251a9af40a",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n.......................\ndef substring(s:String, start:Int, end:Int) {\n\ts.substring(start, end)\n}",
+                                    "uuid": "92dfc866-401e-4d68-925c-c2b3b57395b1",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "2686e552-1a7d-4a57-b5d0-c82c20bb5a92",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 2",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Scala\n\nA function with one argument, but it returns a function which takes another argument.",
+                                    "uuid": "0a67fead-e463-4127-8c21-6f88a38f2e85",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n.......................\nval substring : String => (Int => (Int => String)) = {\n  s => {\n    start => {\n      end => s.substring(start, end)\n    }\n  }\n}",
+                                    "uuid": "a5444882-7a02-440a-8360-cc5c3525db6c",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "2f898146-8e47-4d39-b631-f0cad3c74b2a",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 2",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Scala\n\nA function with one argument, but it returns a function which takes another argument.",
+                                    "uuid": "62542688-39a5-4476-859b-40c3598283b7",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n.......................\nval substring : String => (Int => (Int => String)) = {\n  s => {\n    start => {\n      end => s.substring(start, end)\n    }\n  }\n}",
+                                    "uuid": "089f94f3-a553-46bf-973d-658d650cb764",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "82d049bc-95ee-4c4b-b4da-de12308d2f26",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 2",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Scala\n\nSome syntactic simplicification",
+                                    "uuid": "d1165d5e-06ac-4cc0-b1f4-a5d56bf0378b",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n.......................\nval substring : String => Int => Int => String = {\n  s => start => end => s.substring(start, end)\n}",
+                                    "uuid": "50713169-d00c-4f34-b9b2-9d3f0199d950",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "8df2fad2-0a55-4c4a-aef8-3338060a0585",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Making sense of curried function:\n\n1. Given: `substring : String => Int => Int => String`\n2. Invocation:\n  ~~~\n  substring(\"hello\") : Int => Int => String\n  ~~~\n3. Chained invocation:\n  ~~~\n  substring(\"hello\")(1) : Int => String\n  ~~~\n  ~~~\n  substring(\"hello\")(1)(3) : String = \"hello\".substring(1,3) = \"el\"\n  ~~~\n",
+                                    "uuid": "e483b0c4-c14a-4653-bb61-e489afc5f98c",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "e8398399-daf5-4de4-b378-ca9622a6054e",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "aacf304e-ff9d-41be-a336-5fc0a1365c25",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "Closure",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "> <note/> *Closure* refers to the lexical scoping rule.  Namely, the context of the function body inherits the context of the scope in which it is *defined*.",
+                                    "uuid": "52616766-bb99-4c07-9804-b3edccf4825b",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "55fc921a-1ad8-4437-8e4b-f1e0b279fab8",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Closure is considered a relatively modern feature.  It's not supported in C/C++, and partially supported before Java 8.\n- Closure is central to functional programs.\n- Closure is used in _currying_.",
+                                    "uuid": "96ba21bc-2ec8-4420-bd7a-96886bbbef1c",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "63550511-5876-4454-812d-ffb446cb2a54",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 0",
+                            "children": [
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n.......................\nval substring : String => (Int => (Int => String)) = {\n  s => {\n    start => {\n      end => s.substring(start, end)\n    }\n  }\n} ",
+                                    "uuid": "41482464-9f2a-49a7-94ba-69b1dd33098e",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "css:\n  maxWidth: 300\n  color: blue\n..................\nNote the inner functions inherit the name bindings of the outer functions.",
+                                    "uuid": "8a2248bf-4b6a-46b9-9793-a2e757290298",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "25aa1cc6-7bb1-451a-be45-238f19007deb",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "b32ed32e-7473-4c20-b521-6d23b4d1b042",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "Closure as means of stateful programming",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 2 3",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- In object-oriented programming, we have the ability of encapsulating the state as private members of an object.\n\n- The access to the states (read and write) is done by public methods the object.\n\n- This can be done by returning functions which share the same state variable through closure.",
+                                    "uuid": "22d840ff-3676-4ec1-87fe-e772bbfbeac9",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n......................\ndef newPerson: Map[String]Any = {\n  var state = Map(\"name\" -> \"Jack\",\n                  \"age\" -> 42)\n  val name = () => {state(\"name\")}\n  val age = (n: Int) => { state(\"age\") = n }\n  (name, age)\n}",
+                                    "uuid": "c2d23898-89ab-4ad1-8537-2d2419d2ca1c",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "c97bedaa-c741-4ebf-95ca-8826e29efc06",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "878d45ef-a603-4a8f-8da5-b7435a318302",
+                    "version": 0
+                }
+            ],
+            "uuid": "3ba62a97-30cc-44d6-8b82-e3228d521fa3",
+            "version": 0
+        },
+        {
+            "type": "page",
+            "source": "Side Effects",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "Side Effects",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w : 2 1",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "> <note/> *Side-effects*\n> \n> We say that an expression has _side effects_ if any of the following occurs during the evaluation of the expression:\n> > 1. Change the symbol bindings in its context.\n> 1. Modify *any* data.\n> 2. Perform I/O.\n\nIf repeated evaluation of an expression results in different _state_, then the expression has side effects.",
+                                    "uuid": "770fc463-6376-485f-8511-d0863ccfc80e",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "c: banner\n.............\nSide effects are *bad*.",
+                                    "uuid": "9ab9dafb-13d1-4718-8d94-af0397424d75",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "19865784-bb3d-4ec5-9b3e-2dfe1b4e3852",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "Examples:",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Rebinding\n  > ~~~\n  var x = 10\n  x = 20\n  ~~~\n  \n- Modification of data\n  > ~~~\n  val x = Array(10, 20, 30)\n  x(0) = 100\n  ~~~\n  \n- I/O\n  > ~~~\n  import scala.io.Source\n  val content = Source.fromFile(\"data.txt\").mkString()\n  ~~~\n  > ~~~\n  println(\"Hello\")\n  ~~~",
+                                    "uuid": "d5b5db67-e831-4cc4-8041-d5e114604880",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "f018612f-6933-4968-b450-b0df4e0a4277",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "544d3d23-8b5c-4787-85bb-06906a143135",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "Functional programming",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "c: banner\n...................\nFunctional programming is the paradigm of programming that do not use side effects.  Ever.",
+                                    "uuid": "6c07dd82-6b76-4286-8fb7-ec0b76081c43",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "6639feab-8275-4546-81e3-b34736a8b174",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "6c9dffe0-0d37-4d3e-bbcf-ed28e8de1c19",
+                    "version": 0
+                }
+            ],
+            "uuid": "a77054fd-d651-4094-b3a7-69276c61777b",
+            "version": 0
+        },
+        {
+            "type": "page",
+            "source": "Control structures & evaluation",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "math:\n..........\nControl structure",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "A control structure is part of the programming language that affects the evaluation of an expression:\n\n  \n",
+                                    "uuid": "176dd99e-fba9-49d5-a178-0e2c97ec9236",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "39bff234-831a-42cb-9c4c-2e33f9c01878",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 2 3",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Branching:\n  > *E* = If *cond* then *E1* else *E2*\n  >\n  > The overall expression *E* is evaluated to either *E1* or *E2* depending on the *cond*.\n  >\n  > **Important**:\n  >\n  > In the case of `if false then $E_1$ else $E_2$`, $E_1$ is **not** evaluated at all.  So, its side effects never take place.\n",
+                                    "uuid": "aaeddd5e-41d1-4ea3-9f80-ace182388f0d",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "c: banner\n...................\nCompare expressions with side effects and ones without.",
+                                    "uuid": "46f21902-c409-4b0d-90ea-08e72062e057",
+                                    "version": 64
+                                }
+                            ],
+                            "uuid": "abc57937-9270-42c7-8a4f-6b4dadd5e9b3",
+                            "version": 64
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 2 3",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Looping:\n  > *E* = while *cond* do *E1*\n  >\n  > The loop repeatedly evaluates *E1* until the condition is satisfied.\n  > The overall expression is the last time *E1* is evaluated.",
+                                    "uuid": "d8da668b-4562-4959-98e2-7acaa54f1f41",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "c: banner\n...................\nCompare expressions with side effects and ones without.",
+                                    "uuid": "08ec10f9-5200-4c5c-a1bf-ae29cdbdf424",
+                                    "version": 29
+                                }
+                            ],
+                            "uuid": "beda21ff-9b9d-41d3-9a6d-1ed4794f7366",
+                            "version": 29
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Functional programming has no while loops.",
+                                    "uuid": "bd4c9b6d-a83d-4f04-a367-d3328e7a2731",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "c: banner\n...........\nWhy not?",
+                                    "uuid": "ef13c6b1-8ba4-45f2-a2fa-2bd83f0ce550",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "a988ed44-27f6-49ae-bf0a-c2bdc90722a5",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "1bc687a2-5931-4b5b-8d46-b8c72bb21384",
+                    "version": 94
+                },
+                {
+                    "type": "section",
+                    "source": "Lazy evaluation of expressions",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "> <note/> *Lazy evaluation* is when the evaluation of certain expressions are deferred to as long as possible.",
+                                    "uuid": "60f75a91-2164-4553-a189-ac7bc5b639ca",
+                                    "version": 328
+                                }
+                            ],
+                            "uuid": "914ad938-1723-4504-b461-95f050e01982",
+                            "version": 329
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "Boolean conditions are evaluated lazily.",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "\nC/C++/Java\n~~~\nbool x1 = false && deleteFile()\nbool x2 = true && deleteFile()\n~~~",
+                                    "uuid": "bbe7b7fe-7cf2-43bf-a792-7b11d43431d1",
+                                    "version": 167
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "- The boolean variable `x1` is false, and `deleteFile()` is _never_ executed.\n- During the evaluation of `x2`, `deleteFile()` will be executed.",
+                                    "uuid": "ba85d7e0-7b51-4bcc-b208-b049c072fed1",
+                                    "version": 213
+                                }
+                            ],
+                            "uuid": "1af3a40e-a2d9-4b47-ae46-17f8dfd3055f",
+                            "version": 389
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "Other arithmetics are not lazy.",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "C/C++/Java\n\nint y = 0 * deleteFile()",
+                                    "uuid": "8abd1456-77b0-4903-a9c6-4b23127211f0",
+                                    "version": 47
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "The function `deleteFile()` will be executed in order to evaluate the value for `y`.",
+                                    "uuid": "63275c87-13a2-4963-9178-20759b2cf388",
+                                    "version": 93
+                                }
+                            ],
+                            "uuid": "949374d2-0400-4e4b-95d4-5d7e47f05d91",
+                            "version": 174
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "c: banner\n..................\nCompare expressions with and without side effects.",
+                                    "uuid": "9562b093-4dfa-407f-97f1-dc390cd6c0c3",
+                                    "version": 124
+                                }
+                            ],
+                            "uuid": "2cd418ef-192b-4553-9040-412c3a806408",
+                            "version": 124
+                        }
+                    ],
+                    "uuid": "f41615f9-581a-4e75-a067-2e681e20d02d",
+                    "version": 1064
+                }
+            ],
+            "uuid": "f174c0fe-2d99-4cc2-ba19-87e39b569514",
+            "version": 1159
+        }
+    ],
+    "uuid": "9d323ccc-8b57-4642-8a49-a6dde38acb61",
+    "modified": true,
+    "version": 1159,
+    "history": 6
+}
