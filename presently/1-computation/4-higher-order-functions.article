@@ -1,44 +1,7 @@
 {
     "type": "article",
-    "source": "draft:\n............\nFunctions & Higher Order Functions",
+    "source": "Functions & Higher Order Functions",
     "children": [
-        {
-            "type": "page",
-            "source": "Outline",
-            "children": [
-                {
-                    "type": "section",
-                    "source": "",
-                    "children": [
-                        {
-                            "type": "box",
-                            "layout": "horizontal",
-                            "source": "",
-                            "children": [
-                                {
-                                    "type": "markdown",
-                                    "source": "```\n- simple functions\n- pure function vs side-effects (as context)\n- control structures:\n  - iteration\n  - while loops\n  - if-else\n```",
-                                    "uuid": "ff64fee6-edff-46ae-92ef-e11fe12cf37e",
-                                    "version": 0
-                                },
-                                {
-                                    "type": "markdown",
-                                    "source": "```\n- higher order function\n- HOF vs control structures\n  - evaluation\n  - lazy evaluation\n- control structures as HOF\n```",
-                                    "uuid": "4c32398c-a1f5-4b31-b2f3-0a28e8645ab2",
-                                    "version": 0
-                                }
-                            ],
-                            "uuid": "23a1f775-2733-4153-832f-ef21787e93b2",
-                            "version": 0
-                        }
-                    ],
-                    "uuid": "35273d05-16d9-4876-8072-b49c3ca845bf",
-                    "version": 0
-                }
-            ],
-            "uuid": "f08c1268-de73-44c5-95d3-23187ff22281",
-            "version": 0
-        },
         {
             "type": "page",
             "source": "Defining functions",
@@ -54,7 +17,7 @@
                             "children": [
                                 {
                                     "type": "markdown",
-                                    "source": "- Expressions that evaluate to functions\n- Specification of the input parameters\n- Specification of the return type\n- Specification of the body of the function\n  > Can make use of the function to the declared.",
+                                    "source": "c: center\n............\n- Expressions that evaluate to functions\n> - Specification of the input parameters\n> - Specification of the return type\n> - Specification of the body of the function\n>  > <note/> Can make use of the function to the declared.",
                                     "uuid": "fe65134a-cacd-4b07-859a-36922c91cf16",
                                     "version": 0
                                 }
@@ -387,7 +350,7 @@
                             "children": [
                                 {
                                     "type": "markdown",
-                                    "source": "c: banner\n...................\nFunctional programming is the paradigm of programming that do not use side effects.  Ever.",
+                                    "source": "c: banner\n...................\nFunctional programming is the paradigm of programming that does not use side effects.  Ever.",
                                     "uuid": "6c07dd82-6b76-4286-8fb7-ec0b76081c43",
                                     "version": 0
                                 }
@@ -441,11 +404,11 @@
                                     "type": "markdown",
                                     "source": "c: banner\n...................\nCompare expressions with side effects and ones without.",
                                     "uuid": "46f21902-c409-4b0d-90ea-08e72062e057",
-                                    "version": 64
+                                    "version": 0
                                 }
                             ],
                             "uuid": "abc57937-9270-42c7-8a4f-6b4dadd5e9b3",
-                            "version": 64
+                            "version": 0
                         },
                         {
                             "type": "box",
@@ -462,11 +425,11 @@
                                     "type": "markdown",
                                     "source": "c: banner\n...................\nCompare expressions with side effects and ones without.",
                                     "uuid": "08ec10f9-5200-4c5c-a1bf-ae29cdbdf424",
-                                    "version": 29
+                                    "version": 0
                                 }
                             ],
                             "uuid": "beda21ff-9b9d-41d3-9a6d-1ed4794f7366",
-                            "version": 29
+                            "version": 0
                         },
                         {
                             "type": "box",
@@ -491,7 +454,7 @@
                         }
                     ],
                     "uuid": "1bc687a2-5931-4b5b-8d46-b8c72bb21384",
-                    "version": 94
+                    "version": 0
                 },
                 {
                     "type": "section",
@@ -506,11 +469,11 @@
                                     "type": "markdown",
                                     "source": "> <note/> *Lazy evaluation* is when the evaluation of certain expressions are deferred to as long as possible.",
                                     "uuid": "60f75a91-2164-4553-a189-ac7bc5b639ca",
-                                    "version": 328
+                                    "version": 0
                                 }
                             ],
                             "uuid": "914ad938-1723-4504-b461-95f050e01982",
-                            "version": 329
+                            "version": 0
                         },
                         {
                             "type": "box",
@@ -519,19 +482,19 @@
                             "children": [
                                 {
                                     "type": "markdown",
-                                    "source": "\nC/C++/Java\n~~~\nbool x1 = false && deleteFile()\nbool x2 = true && deleteFile()\n~~~",
+                                    "source": "C/C++/Java\n~~~\nbool x1 = false && deleteFile()\nbool x2 = true && deleteFile()\n~~~",
                                     "uuid": "bbe7b7fe-7cf2-43bf-a792-7b11d43431d1",
-                                    "version": 167
+                                    "version": 0
                                 },
                                 {
                                     "type": "markdown",
                                     "source": "- The boolean variable `x1` is false, and `deleteFile()` is _never_ executed.\n- During the evaluation of `x2`, `deleteFile()` will be executed.",
                                     "uuid": "ba85d7e0-7b51-4bcc-b208-b049c072fed1",
-                                    "version": 213
+                                    "version": 0
                                 }
                             ],
                             "uuid": "1af3a40e-a2d9-4b47-ae46-17f8dfd3055f",
-                            "version": 389
+                            "version": 0
                         },
                         {
                             "type": "box",
@@ -540,19 +503,19 @@
                             "children": [
                                 {
                                     "type": "markdown",
-                                    "source": "C/C++/Java\n\nint y = 0 * deleteFile()",
+                                    "source": "C/C++/Java\n\n`int y = 0 * deleteFile()`",
                                     "uuid": "8abd1456-77b0-4903-a9c6-4b23127211f0",
-                                    "version": 47
+                                    "version": 0
                                 },
                                 {
                                     "type": "markdown",
                                     "source": "The function `deleteFile()` will be executed in order to evaluate the value for `y`.",
                                     "uuid": "63275c87-13a2-4963-9178-20759b2cf388",
-                                    "version": 93
+                                    "version": 0
                                 }
                             ],
                             "uuid": "949374d2-0400-4e4b-95d4-5d7e47f05d91",
-                            "version": 174
+                            "version": 0
                         },
                         {
                             "type": "box",
@@ -563,23 +526,386 @@
                                     "type": "markdown",
                                     "source": "c: banner\n..................\nCompare expressions with and without side effects.",
                                     "uuid": "9562b093-4dfa-407f-97f1-dc390cd6c0c3",
-                                    "version": 124
+                                    "version": 0
                                 }
                             ],
                             "uuid": "2cd418ef-192b-4553-9040-412c3a806408",
-                            "version": 124
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Lazy evaluation is crucial for control structures with expressions with side effects.\n\n  > For `if-then-else`, we can only evaluate *one* of the two expressions.\n  \n- Lazy evaluation is not necessary for expressions without side effects.\n\n  > For `if-then-else`, we can evaluate *both* true and false expressions, because they have no side effects.",
+                                    "uuid": "fbf122d2-44eb-4ce9-8620-5971e2c08f36",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "97afd6e0-5e40-4403-927f-96cc6e2693b3",
+                            "version": 0
                         }
                     ],
                     "uuid": "f41615f9-581a-4e75-a067-2e681e20d02d",
-                    "version": 1064
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "Lazy evaluation & Functional Programming",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Assume that all expressions in a program are free of side effects.\n- The order of evaluation does not matter.\n- We want to minimize the number of expression evaluations for performance considerations.\n- We can set *all* expression evaluations to be lazy.\n  > Only evaluate an expression when it is needed.",
+                                    "uuid": "2a9dcb00-72bc-4055-a84e-8ac562f369a6",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "It can be confusing when an expression is evaluated.\n\nScala / Clojure:\n> Special syntax is used to declare that certain expressions are to be evaluated lazily.\n\nC / C++ / Java:\n> (Almost) everything is evaluated immediately.\n\nHaskell:\n> Everything is evaluated lazily.",
+                                    "uuid": "f3048991-e0f5-4d64-88d3-535f34ac181a",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "a074fe0c-1d30-49fd-ad95-5c9268f093b1",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "a80fa86c-e3cd-402c-a401-590a8b2786f7",
+                    "version": 0
                 }
             ],
             "uuid": "f174c0fe-2d99-4cc2-ba19-87e39b569514",
-            "version": 1159
+            "version": 0
+        },
+        {
+            "type": "page",
+            "source": "Higher Order Functions",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "Definition",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "> <note/> A higher order function (HOF) is a function which\n> 1. accepts a function as its parameter, or\n> 2. returns a function as its output.\n\n",
+                                    "uuid": "ea3b5115-7fc5-446d-b74c-55165aac449c",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "We have already encountered HOFs, as they are used for currying a multi-argument function to a chain of single-argument functions. ",
+                                    "uuid": "102b2656-fdaa-48ae-80cf-e94c29b2068e",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "e9fbd5b0-d379-4f86-8115-937cc0037ebc",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "5b6c4bb2-6455-4f03-9e15-ee602684e453",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "................\nExample: map",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Suppose we want to design a function that applies some operation to each element of a list.  This function is often called a _map_.\n\n~~~\nintMap: (List[Int], Int => Int) => List[Int]\n~~~\n\nHow do we implement this function?",
+                                    "uuid": "8ca7c280-4102-40ca-880d-2955f5f6edbf",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "199356fa-8f06-4f5f-84d1-e1bc5d18c2a7",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 2",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Just think that functions are values.  When we want to invoke a function that is bound to the symbol `f`, use `f(...)`.",
+                                    "uuid": "17bd561e-66bf-42c6-9133-6d7154a9c095",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n..................\nimport scala.collection.mutable.MutableList\n\ndef intMap(list List[Int], f:Int=>Int):List[Int] = {\n  val result = MutableList[Int]()\n  for(x <- list) {\n    result += f(x)\n  }\n  result\n}",
+                                    "uuid": "1439c3de-0a95-41ec-8c1a-cfc7ddcbf76c",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "844ba04a-5662-41c6-bd77-b763e8481a28",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "6f7e9b9e-6459-4fbb-a8d7-54a8493447d9",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "Custom Control Structures",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Let's explore ways of using HOF to implement control structures.\n\nWe will examine through some examples:\n\n- Control structures as HOF\n- Lazy evaluation of expressions with side effects",
+                                    "uuid": "f5ab2418-1235-481f-8695-ab1ea8571a56",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "96ab8f89-97d8-4a3a-bc8e-5cf364718594",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 3",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Run an expression `e`,  `n` times.",
+                                    "uuid": "e3a116fb-8aa2-49ba-9076-de0900fbb659",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n.......................\nval Repeat: Int => (() => Any) => Unit = {\n  n => {\n    f => {\n      for(_ <- 0 until n) f.apply\n    }\n  }\n}",
+                                    "uuid": "78bd6a1d-ed03-48c8-9b69-c68f82bcd67c",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "dd61c3c1-051f-49d8-a9f5-6333085d6658",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 3",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "",
+                                    "uuid": "6d6dd127-b8b0-422c-99da-e647df5d83b7",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n.......................\nval runMe = () => {\n  println(\"Hello\")\n  println(\"\\t\\tworld.\")\n}\nRepeat(3)(runMe)",
+                                    "uuid": "707435f7-ac4a-4a5a-b5ca-bcf9f655eb4a",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "b4a5d58f-2b92-4678-b8a5-95224ef10cf0",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "*The importance of lazy evaluation*\n***\n\nLet's consider another control structure:\n\n> We will invent a new control structure called `unless`. It takes an expression to as a condition, and a statement.  The statement is evaluated **only** if the condition is false.\n>\n> Here is sample usage\n>  ~~~\nunless(age > 65, () => println(\"You are not a senior.\"))\n  ~~~\n  \n",
+                                    "uuid": "792a04fa-b42c-488f-bae8-5c9e9529ef03",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "5969955f-77c5-427e-99c1-4b7904b77a62",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "vertical",
+                            "source": "w: 2 3",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Let's examine the type signature of `unless`.\n\n> `unless: (Boolean, () => Unit): Unit`\n\nHere is the implementation.",
+                                    "uuid": "51c2398c-4c05-4d72-899f-2197fceb701a",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n.....................\ndef unless(cond: Boolean, f:() => Unit) = {\n  if(! cond) {\n    f()\n  }\n}",
+                                    "uuid": "73f11199-b907-42ba-81a1-47befc171fbe",
+                                    "version": 6
+                                }
+                            ],
+                            "uuid": "57460272-1bf8-4510-99d9-efdb0655b063",
+                            "version": 6
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 2 1",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Let's improve the syntax.\n\nWe would like to have:\n\n~~~\nunless(age > 65, { println(\"You are not a senior.\" })\n~~~\n\n",
+                                    "uuid": "3d1d8c51-3d3e-4bd7-bb2f-dde1a3b1208f",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "css:\n  color: blue\n............\nWe need to reconsider the type signature of `unless`.\n\nScala supports lazily evaluated expressions for function arguments.",
+                                    "uuid": "131f70ba-9106-43f5-a6b8-5a648e2ece26",
+                                    "version": 129
+                                }
+                            ],
+                            "uuid": "549e601d-52fb-4372-a3bc-e9402b95e06f",
+                            "version": 130
+                        },
+                        {
+                            "type": "box",
+                            "layout": "vertical",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Let's first redefine `unless` with the new type signature:\n\n> `unless: (cond: Boolean, code: => Unit)`\n\n",
+                                    "uuid": "99591332-88dd-4856-9176-e8c4c3344b0e",
+                                    "version": 155
+                                },
+                                {
+                                    "type": "box",
+                                    "layout": "horizontal",
+                                    "source": "w: 3 1",
+                                    "children": [
+                                        {
+                                            "type": "code",
+                                            "source": "lang: scala\n...............\ndef unless(cond:Boolean, code: => Unit) = {\n  if(! cond) code\n}",
+                                            "uuid": "d23d8d8e-bb58-4f20-b13f-32ac7506fc23",
+                                            "version": 142
+                                        },
+                                        {
+                                            "type": "markdown",
+                                            "source": "css:\n  color: blue\n............\nThe `code: => Unit` is a lazily evaluated expression (which evaluates to `Unit`).  It only gets evaluated when its _name_ is referred to.\n\nThis is called *by-name* parameters.",
+                                            "uuid": "5055ba2c-66fa-4d7d-8bae-5f049a66c6f8",
+                                            "version": 245
+                                        }
+                                    ],
+                                    "uuid": "aca1bde0-c314-4be2-9da4-6cb20eac9309",
+                                    "version": 257
+                                }
+                            ],
+                            "uuid": "cb19810c-9aa3-4bdb-958c-9d3029699e81",
+                            "version": 557
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 3",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "\nLet's use the new `unless`:",
+                                    "uuid": "9e7cf270-9704-404a-9f5f-a147833178f2",
+                                    "version": 45
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n...............................\nunless(age > 65, println(\"You are not a senior\"))",
+                                    "uuid": "7666862c-b4ad-4f77-a547-b57bc7c166b8",
+                                    "version": 103
+                                }
+                            ],
+                            "uuid": "8c9a0938-1383-4564-82b2-05c623f6c730",
+                            "version": 162
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "css:\n  fontSize: 150%\n......................\n- Why is lazily evaluation necessary for the `code` parameter?\n- Is it still necessary if the expression has *no* side-effects?",
+                                    "uuid": "eb9b0af8-15bf-4356-88eb-559d148a861e",
+                                    "version": 219
+                                }
+                            ],
+                            "uuid": "c5c3b77d-a481-455d-aeb6-0be383047560",
+                            "version": 219
+                        }
+                    ],
+                    "uuid": "21b2205c-1a2b-4eff-88ad-658af6b0a152",
+                    "version": 1076
+                },
+                {
+                    "type": "section",
+                    "source": "A preview of Scala's scalable syntax",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Scala stands for _a scalable language_.  We will show how it's syntax resolution rules allow one to extend the scala syntax using HOF.",
+                                    "uuid": "62c07f44-4f0c-43bb-8f6b-ceb02228d4b0",
+                                    "version": 178
+                                }
+                            ],
+                            "uuid": "af988805-e609-46ec-a4b1-a9a29ee75f17",
+                            "version": 179
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 0 1",
+                            "children": [
+                                {
+                                    "type": "code",
+                                    "source": "class UnlessStatement(cond: Boolean) {\n    def Do(code: => Unit) = {\n        if(! cond) code\n    }\n}\n\nobject Check {\n    def Unless(cond: Boolean):UnlessStatement = {\n        return new UnlessStatement(cond)\n    }\n}\n",
+                                    "uuid": "097972eb-4c49-4c9a-90b8-f1065a9d1dd9",
+                                    "version": 157
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "We can use `Check` as a totally new control structure:\n\n~~~\nCheck Unless (age > 65) Do {\n  println(\"not a senior\")\n}\n~~~",
+                                    "uuid": "014a71d4-7846-49f4-b22e-9590afafa15d",
+                                    "version": 160
+                                }
+                            ],
+                            "uuid": "987a7ef7-875d-4a00-8448-8af15114e3b8",
+                            "version": 357
+                        }
+                    ],
+                    "uuid": "f93d64a5-51b4-45f0-8adc-45fe4b0a5353",
+                    "version": 658
+                }
+            ],
+            "uuid": "61fcffec-8070-431b-9a4d-2e8e7eb11a4b",
+            "version": 1735
         }
     ],
     "uuid": "9d323ccc-8b57-4642-8a49-a6dde38acb61",
-    "modified": true,
-    "version": 1159,
+    "modified": false,
+    "version": 1735,
     "history": 6
 }
