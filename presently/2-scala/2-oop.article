@@ -1,0 +1,417 @@
+{
+    "type": "article",
+    "source": "Scala Object Oriented Programming",
+    "children": [
+        {
+            "type": "page",
+            "source": "Defining Classes",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "(Generic) Classes with primary constructor",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1  3",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Classes are types, declared like Java classes.\n- Can have generic type parameters.\n- Must have a _primary_ constructor.\n  > The primary constructor has non-Java syntax.",
+                                    "uuid": "cc5acdae-428e-40d2-af7b-ee579c8550a3",
+                                    "version": 285
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n.......................\nclass Triple[S, T, U](x1: S, x2: T, x3: U) {\n  var first = x1\n  var second = x2\n  var third = x3\n  \n  println(s\"\"\"Hey, you have just created me:\n             |($x1, $x2, $x3)\"\"\")\n             \n  def swapFirstSecond(): Unit = {\n    this.first, this.second = (this.second, this.first)\n  }\n}",
+                                    "uuid": "9a881fc0-2d1d-46cb-b1ad-ea5120e9eeec",
+                                    "version": 39
+                                }
+                            ],
+                            "uuid": "62da3212-9621-49bc-b7bd-d097ac702e18",
+                            "version": 822
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 0",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Scala allows `val` or `var` as fields.\n- Inside the class body, we can have:\n  1. Fields\n  2. Methods\n  3. Arbitrary code as part of the primary constructor",
+                                    "uuid": "b6fb8498-4329-4aa9-b8dc-3242663f0ed7",
+                                    "version": 41
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "<pre>\n<b>class</b> Name [<i>type parameters</i>] ( <i>param-list</i> ) {\n  <i>class-body</i>\n}\n</pre>",
+                                    "uuid": "ccc615a5-e0c9-4308-9c75-f244ae3766de",
+                                    "version": 129
+                                }
+                            ],
+                            "uuid": "84234bc3-61e0-409b-9c4d-4618788be21f",
+                            "version": 190
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Class body is optional.  We can just have empty class definitions.\n",
+                                    "uuid": "c443afbf-d5dc-402d-b915-18dc0e71854b",
+                                    "version": 171
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n...................\nclass A\nclass B(x: Int)\n",
+                                    "uuid": "68464d79-a147-4966-a7e5-b7c615ea6992",
+                                    "version": 33
+                                }
+                            ],
+                            "uuid": "f96b2ee4-9a6f-46e7-b240-f8b4a58ba676",
+                            "version": 206
+                        }
+                    ],
+                    "uuid": "3c7aa9ec-2fa4-4503-850b-933bf40cce30",
+                    "version": 1271
+                },
+                {
+                    "type": "section",
+                    "source": "Fields, Methods and other constructors",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 0",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "1. Any `val` or `var` symbol declared in the body of the class is a _field_ of the class.\n  > The usual modifier of `private` can be used.\n2. Methods are declared by the keyword `def`.\n3. Any methods with the special name `this` is a constructor.\n   > `def this(...)` defines contructors in addition to the primary constructor.",
+                                    "uuid": "4e9bb814-bda8-4f72-8b32-b78fd3c196ac",
+                                    "version": 889
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n..................\nclass Rational(n: Int, d: Int) {\n  val num = n\n  val denum = d\n  def this(n: Int) = this(n, d)\n  def str : String = num + \"/\" + denum\n}",
+                                    "uuid": "87524f52-12d3-41ad-914e-0897856e6821",
+                                    "version": 315
+                                }
+                            ],
+                            "uuid": "945944c6-901a-4161-9f4a-6041616cec3e",
+                            "version": 1246
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "## More on the parameters",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "_For class parameters_\n\n- Declare fields directly\n  <pre>\n  class Rational(<b>val</b> num:Int, <b>val</b> denum: Int) {\n    <strike>val num = n</strike>\n    <strike>val denum = d</strike>\n    <i>... same as before</i>\n  }\n  </pre>\n  \n- Parameter with default value\n  <pre>\n  class Rational(val num:Int, <b style=color:blue>val denum: Int = 1</b>) {\n    ...\n    <strike>def this(n: Int) = this(n, d)</strike>\n    ...\n  }\n  </pre>",
+                                    "uuid": "c9c8bc80-4ae3-45d2-9aeb-f97b14257115",
+                                    "version": 556
+                                }
+                            ],
+                            "uuid": "6d22af58-a94f-4d48-acbb-a21683425872",
+                            "version": 582
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 0",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "This is a really succinct definition of triples.",
+                                    "uuid": "0f233052-6eba-4134-bdbe-8b42b4fa7acc",
+                                    "version": 59
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n..........................\nclass Triple[S,T,U](val x:S, val y:T, val z:U)",
+                                    "uuid": "b1f98684-dd46-4ef9-8b18-6c3522bcccf3",
+                                    "version": 87
+                                }
+                            ],
+                            "uuid": "d24e8615-df9b-4487-8827-c342ae504762",
+                            "version": 159
+                        }
+                    ],
+                    "uuid": "acd9b2cb-57d7-4f0b-bb10-aa5a86b2a936",
+                    "version": 2059
+                },
+                {
+                    "type": "section",
+                    "source": "Building class hierarchy with inheritance",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Scala supports inheritance using a Java-like `extends` keyword.\n\nBut there are some details we need to pay attention to.",
+                                    "uuid": "13335c0a-3bca-4149-a740-74f6d623557c",
+                                    "version": 150
+                                }
+                            ],
+                            "uuid": "eb5696d1-ede9-481a-b20b-a0a950143588",
+                            "version": 161
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 0",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Subclass needs extend a superclass with its class parameters.",
+                                    "uuid": "581f7967-5501-413f-844a-fdd56d5fe2f9",
+                                    "version": 141
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n...............\nclass Person(n: String) {\n  val name = n\n}\n\nclass Student(n: String, id: Int) extends Person(n) {\n  val studentId = id\n}\n\nclass Doctor(n: String) extends Person(\"Dr. \" + n)",
+                                    "uuid": "69136ad9-a155-47a5-a049-002ed4cc0217",
+                                    "version": 220
+                                }
+                            ],
+                            "uuid": "be8ae23a-8a14-4f9b-ba29-55cea2006f75",
+                            "version": 448
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 0",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Any fields or methods that the subclass redefines must be marked by `override` modifier in its declaration.",
+                                    "uuid": "e4c2fb70-9631-47bf-9a0a-e5496aaf68a6",
+                                    "version": 115
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n...............\nclass Person(n: String) {\n  val name = n\n  def hello(message: String):Unit = {\n    println(\"Hi, \" + message)\n  }\n}\n\nclass Doctor(n: String) extends Person(\"Dr. \" + n) {\n  override hello(message: String):Unit = {\n    println(s\"My name is ${this.name}. ${message}\")\n  }\n}",
+                                    "uuid": "293ff8b9-521a-4a03-89ae-f84772bd297e",
+                                    "version": 193
+                                }
+                            ],
+                            "uuid": "43a01c81-b4e3-476f-a166-f6412298028f",
+                            "version": 310
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Suppose we have:\n> ~~~\nclass Person(val name: String)\n~~~\n\nIf we want to extend it to student records, we need to override `val name` field.\n\n> <pre>\nclass Student(<b>override</b> val name:String, val studentId: Int) extends Person(val)\n</pre>",
+                                    "uuid": "8f7947bd-8a90-4d8b-bfb4-bb5ed12fffd0",
+                                    "version": 356
+                                }
+                            ],
+                            "uuid": "18e7a784-9e86-41dd-9a8f-54cb5421e678",
+                            "version": 356
+                        }
+                    ],
+                    "uuid": "06a07924-d9fa-41e7-bf79-d90d213bbf3a",
+                    "version": 1347
+                },
+                {
+                    "type": "section",
+                    "source": "Constraints on generic type parameters",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 2",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Various ways of type parameterization",
+                                    "uuid": "43c08055-d836-469a-84db-955468d55082",
+                                    "version": 43
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: scala\n..............................\n// variance\nclass Container[T] { ... }\nclass Container[+T] {...}\nclass Container[-T] {...}\n\n// bounds\nclass Group1[P <: Person]\nclass Group2[P >: Doctor]\nclass Group3[P >: Doctor <: Person]\n\n// both\nclass Group3[+P >: Doctor <: Person]",
+                                    "uuid": "16a85640-fa31-4e14-a1b9-0fce15fd56c0",
+                                    "version": 462
+                                }
+                            ],
+                            "uuid": "502d1567-98fe-46fd-9d66-7bf7af1ab535",
+                            "version": 522
+                        }
+                    ],
+                    "uuid": "c0df2310-0897-41db-9724-978ec4491dfe",
+                    "version": 573
+                }
+            ],
+            "uuid": "8d882930-9254-4732-9ea1-094d34d4e5b2",
+            "version": 5300
+        },
+        {
+            "type": "page",
+            "source": "Objects",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "Instantiation of classes",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Nisi irure eu proident consectetur qui id id mollit excepteur. Nisi adipisicing Lorem duis magna nisi. Occaecat labore eiusmod esse commodo eu tempor. Elit ullamco Lorem quis deserunt voluptate quis.",
+                                    "uuid": "2760727e-9ee0-44a3-8d88-819c6d61f477",
+                                    "version": -1
+                                }
+                            ],
+                            "uuid": "192cdd71-d200-4853-afaf-6cb1c88e5531",
+                            "version": -1
+                        }
+                    ],
+                    "uuid": "1a039f96-6685-4db4-9987-88632dd8efcf",
+                    "version": 26
+                },
+                {
+                    "type": "section",
+                    "source": ".................\nSingletons: buiding objects without a class",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Dolore quis cillum veniam dolore qui commodo sunt ullamco ullamco. Commodo voluptate aliquip magna amet veniam cillum officia ex eiusmod occaecat elit magna culpa pariatur. Dolore laborum sit ex nulla ut veniam esse in voluptate qui excepteur mollit. Fugiat consectetur ea tempor exercitation elit velit reprehenderit commodo occaecat do nulla quis incididunt nisi. Aute sint eiusmod cillum non labore ea. Nisi ex tempor officia pariatur in.",
+                                    "uuid": "cc4d8870-3f81-4995-a910-0d8b026211f4",
+                                    "version": -1
+                                }
+                            ],
+                            "uuid": "5b32ba5a-b915-424c-9b5d-d4af25ad6383",
+                            "version": -1
+                        }
+                    ],
+                    "uuid": "22f674cc-1e7f-4f2e-88fc-cd8011af4c72",
+                    "version": 105
+                },
+                {
+                    "type": "section",
+                    "source": "Companion objects",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Proident anim cillum incididunt mollit quis duis magna reprehenderit. Ut dolor exercitation voluptate minim cupidatat non culpa Lorem sit fugiat ea enim esse. Mollit ad laborum incididunt ea aute aute non. Elit veniam officia nulla labore ea ad exercitation commodo non. Magna non anim dolor eiusmod dolore officia reprehenderit aute aliqua. Consequat eiusmod duis nisi nulla irure esse esse adipisicing nisi.",
+                                    "uuid": "bb7c89fc-cda9-4cb9-8371-64e37c3c1635",
+                                    "version": -1
+                                }
+                            ],
+                            "uuid": "aca713db-5fa6-48cb-ac54-abcb19147c21",
+                            "version": -1
+                        }
+                    ],
+                    "uuid": "e373aceb-9a9d-4dfe-8c82-301c802c63c3",
+                    "version": 20
+                }
+            ],
+            "uuid": "33f68060-e3d0-49f1-9ce1-fc350ec35c9c",
+            "version": 175
+        },
+        {
+            "type": "page",
+            "source": "Methods & Invocation",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "Simple object method invocation",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Incididunt ullamco sit culpa nisi. Irure ad est et nulla aute dolor. Ullamco Lorem enim laboris in amet minim et ex est anim irure occaecat et. Mollit aliqua officia pariatur sunt minim quis elit irure ad magna est mollit ea. Dolore ullamco ad laborum dolore. Consectetur exercitation velit do qui sunt.",
+                                    "uuid": "e9f3aa6f-08c2-4b2a-8485-ca9c3b72aeb6",
+                                    "version": -1
+                                }
+                            ],
+                            "uuid": "1f7d1d0c-48de-42ba-8608-d236affcd9ea",
+                            "version": -1
+                        }
+                    ],
+                    "uuid": "fa3c43cb-42eb-4a24-8008-9d5151e22067",
+                    "version": 35
+                },
+                {
+                    "type": "section",
+                    "source": "Methods as operators",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Cupidatat laboris aliqua aliquip culpa magna reprehenderit sunt. Est eu occaecat magna duis sint aliquip adipisicing culpa amet duis laborum elit eiusmod. Voluptate nulla excepteur pariatur occaecat nostrud ea nisi aliqua. Et pariatur eiusmod enim laboris qui duis amet labore magna ex reprehenderit reprehenderit aliquip est.",
+                                    "uuid": "ec912b1d-149b-4be5-aa57-74d5ecb52658",
+                                    "version": -1
+                                }
+                            ],
+                            "uuid": "70ece91f-208f-40c1-aff1-eee1daab9c85",
+                            "version": -1
+                        }
+                    ],
+                    "uuid": "6574d3c3-7cc5-4032-a0d3-d8fd197304aa",
+                    "version": 33
+                },
+                {
+                    "type": "section",
+                    "source": "Objects as functions",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Tempor Lorem ad velit proident irure duis est minim non et nulla velit. Est pariatur ad reprehenderit culpa. Laborum labore sunt proident ullamco irure dolore esse exercitation laborum irure enim occaecat.",
+                                    "uuid": "9bced493-ecac-4dad-8539-f4d40969367e",
+                                    "version": 1
+                                }
+                            ],
+                            "uuid": "f916ad12-1a52-4634-bd5d-bd69257464c9",
+                            "version": 1
+                        }
+                    ],
+                    "uuid": "358f7114-26f7-4398-8671-bdeffaca8771",
+                    "version": 57
+                }
+            ],
+            "uuid": "85112b94-476b-4d65-a1d2-e68a4b9cd344",
+            "version": 165
+        }
+    ],
+    "uuid": "7645215f-6791-4903-9973-b647ab1a812d",
+    "modified": true,
+    "version": 5712,
+    "history": 6
+}
