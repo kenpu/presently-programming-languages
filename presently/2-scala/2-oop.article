@@ -25,11 +25,11 @@
                                     "type": "code",
                                     "source": "lang: scala\n.......................\nclass Triple[S, T, U](x1: S, x2: T, x3: U) {\n  var first = x1\n  var second = x2\n  var third = x3\n  \n  println(s\"\"\"Hey, you have just created me:\n             |($x1, $x2, $x3)\"\"\")\n             \n  def swapFirstSecond(): Unit = {\n    this.first, this.second = (this.second, this.first)\n  }\n}",
                                     "uuid": "9a881fc0-2d1d-46cb-b1ad-ea5120e9eeec",
-                                    "version": 2
+                                    "version": 0
                                 }
                             ],
                             "uuid": "62da3212-9621-49bc-b7bd-d097ac702e18",
-                            "version": 2
+                            "version": 0
                         },
                         {
                             "type": "box",
@@ -75,7 +75,7 @@
                         }
                     ],
                     "uuid": "3c7aa9ec-2fa4-4503-850b-933bf40cce30",
-                    "version": 2
+                    "version": 0
                 },
                 {
                     "type": "section",
@@ -96,11 +96,11 @@
                                     "type": "code",
                                     "source": "lang: scala\n..................\nclass Rational(n: Int, d: Int) {\n  val num = n\n  val denum = d\n  def this(n: Int) = this(n, 1)\n  def str : String = num + \"/\" + denum\n}",
                                     "uuid": "87524f52-12d3-41ad-914e-0897856e6821",
-                                    "version": 3
+                                    "version": 0
                                 }
                             ],
                             "uuid": "945944c6-901a-4161-9f4a-6041616cec3e",
-                            "version": 3
+                            "version": 0
                         },
                         {
                             "type": "box",
@@ -111,11 +111,11 @@
                                     "type": "markdown",
                                     "source": "_For class parameters_\n\n- Declare fields directly\n  <pre>\n  class Rational(<b>val</b> num:Int, <b>val</b> denum: Int) {\n    <strike>val num = n</strike>\n    <strike>val denum = d</strike>\n    <i>... same as before</i>\n  }\n  </pre>\n  \n- Parameter with default value\n  <pre>\n  class Rational(val num:Int, <b style=color:blue>val denum: Int = 1</b>) {\n    ...\n    <strike>def this(n: Int) = this(n, 1)</strike>\n    ...\n  }\n  </pre>",
                                     "uuid": "c9c8bc80-4ae3-45d2-9aeb-f97b14257115",
-                                    "version": 4
+                                    "version": 0
                                 }
                             ],
                             "uuid": "6d22af58-a94f-4d48-acbb-a21683425872",
-                            "version": 4
+                            "version": 0
                         },
                         {
                             "type": "box",
@@ -140,7 +140,7 @@
                         }
                     ],
                     "uuid": "acd9b2cb-57d7-4f0b-bb10-aa5a86b2a936",
-                    "version": 7
+                    "version": 0
                 },
                 {
                     "type": "section",
@@ -197,11 +197,11 @@
                                     "type": "code",
                                     "source": "lang: scala\n...............\nclass Person(n: String) {\n  val name = n\n  def hello(message: String):Unit = {\n    println(\"Hi, \" + message)\n  }\n}\n\nclass Doctor(n: String) extends Person(\"Dr. \" + n) {\n  override def hello(message: String):Unit = {\n    println(s\"My name is ${this.name}. ${message}\")\n  }\n}",
                                     "uuid": "293ff8b9-521a-4a03-89ae-f84772bd297e",
-                                    "version": 5
+                                    "version": 0
                                 }
                             ],
                             "uuid": "43a01c81-b4e3-476f-a166-f6412298028f",
-                            "version": 5
+                            "version": 0
                         },
                         {
                             "type": "box",
@@ -220,7 +220,7 @@
                         }
                     ],
                     "uuid": "06a07924-d9fa-41e7-bf79-d90d213bbf3a",
-                    "version": 5
+                    "version": 0
                 },
                 {
                     "type": "section",
@@ -253,7 +253,7 @@
                 }
             ],
             "uuid": "8d882930-9254-4732-9ea1-094d34d4e5b2",
-            "version": 14
+            "version": 0
         },
         {
             "type": "page",
@@ -625,13 +625,13 @@
                                 },
                                 {
                                     "type": "markdown",
-                                    "source": "```\na << b || c +++ d\n```\n\nWhich interpretation is correct?\n\n- `((a << b) || c) +++ d = a.<<(b.||(c.+++(d)))`\n- `((a << b) || (c +++ d)) = (a.<<(b)).||(c.+++(d))`",
+                                    "source": "```\na << b || c +++ d\n```\n\nWhich interpretation is correct?\n\n- `((a << b) || c) +++ d = (a.<<(b)).||(c).+++(d)`\n- `((a << b) || (c +++ d)) = (a.<<(b)).||(c.+++(d))`",
                                     "uuid": "08646a56-7ae2-4702-8d00-50ea55045b3b",
-                                    "version": 0
+                                    "version": 2
                                 }
                             ],
                             "uuid": "f1f9d388-1a09-40af-9a8d-6eeaf77f8981",
-                            "version": 0
+                            "version": 2
                         },
                         {
                             "type": "box",
@@ -671,7 +671,7 @@
                         }
                     ],
                     "uuid": "6574d3c3-7cc5-4032-a0d3-d8fd197304aa",
-                    "version": 0
+                    "version": 2
                 },
                 {
                     "type": "section",
@@ -719,7 +719,7 @@
                 }
             ],
             "uuid": "85112b94-476b-4d65-a1d2-e68a4b9cd344",
-            "version": 0
+            "version": 2
         },
         {
             "type": "page",
@@ -799,6 +799,6 @@
     ],
     "uuid": "7645215f-6791-4903-9973-b647ab1a812d",
     "modified": true,
-    "version": 14,
+    "version": 2,
     "history": 6
 }
