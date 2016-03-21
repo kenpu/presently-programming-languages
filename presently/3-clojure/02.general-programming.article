@@ -1,0 +1,179 @@
+{
+    "type": "article",
+    "source": "General Programming with Clojure",
+    "children": [
+        {
+            "type": "page",
+            "source": "About",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Scoping with `let`\n- Conditionals\n  - if\n  - cond\n  - condp\n  - case\n- Strange loops\n  - `dotimes`\n  - `for`\n  - `doall`\n  - `doseq`\n  - `loop` and `recur`: tail recursion\n",
+                                    "uuid": "b52d1b5d-b786-49ef-969e-36561a38894d",
+                                    "version": 2
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "- Fancy bindings\n  - https://gist.github.com/john2x/e1dca953548bfdfb9844\n  \n- Interop with Java\n  - Importing Java\n  - Create instances\n  - Access static and object fields\n  - The `(doto ...)` form\n  - The `(set! ...)` form\n  \n",
+                                    "uuid": "440a0b8a-44b7-41f7-9c05-252117ea8e32",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "f055aaf5-ed01-428c-886b-55af335caff4",
+                            "version": 2
+                        }
+                    ],
+                    "uuid": "92aba5fd-fdeb-4aa0-a3bf-1d35163a31dc",
+                    "version": 2
+                }
+            ],
+            "uuid": "7a6320a0-34f1-4729-b976-4c995151e826",
+            "version": 2
+        },
+        {
+            "type": "page",
+            "source": "Scoping",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "(let ...)",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 2",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Create a new scope with new symbols",
+                                    "uuid": "549857df-0b3d-4bd8-a2e2-a212a241d667",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: clojure\n.........................\n(let [name \"Jack\"\n      age  42\n      add  (fn [x y] (+ x y))]\n  ;; this is a new scope with the bindings\n  ;; `name`, `age` and `add`\n  (println name \"is\" age \"years old, and he will be\" (add age 1)))",
+                                    "uuid": "bd7f4c65-25e2-47ef-ba0a-98bce702fb3c",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "be6e8808-45a7-4234-b4c0-55c13ab21c1f",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "5bc02720-3e36-430f-8f9c-8af3916037ff",
+                    "version": 0
+                }
+            ],
+            "uuid": "6ed60ce9-3936-4b8e-a3aa-fcdd67dddb6f",
+            "version": 0
+        },
+        {
+            "type": "page",
+            "source": "Conditionals",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "if",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 2",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Pick the one expression to evaluate.\n\nForm:\n> ~~~\n(if test true-expr false-expr)\n~~~\n> or\n~~~\n(if test true-expr)\n~~~",
+                                    "uuid": "03debc5f-f44b-4284-b4b3-18e5654fd01b",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: clojure\n......................\n(defn div\n  [numerator denomintor]\n  (if (zero? denominator)\n    (if (pos? numerator)\n      Double/POSITIVE_INFINITY\n      Double/NEGATIVE_INFINITY)\n    (/ numerator denominator)))",
+                                    "uuid": "145fce01-3758-420a-8531-71a40603bee4",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "db8422e6-1383-4a63-8058-40462c4c9bcd",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "53c813fc-cf76-487b-9cee-4d143fc99ff7",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "cond",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 2",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Allows multiple cases to be tested.\n\nGeneral form:\n\n~~~\n(cond\n  test1 expr1\n  test2 expr2\n  :else default-expr)\n~~~",
+                                    "uuid": "6215e7ea-d722-44c5-b7ad-0cc6a9eee089",
+                                    "version": 14
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: clojure\n......................\n(defn div\n  [numerator denomintor]\n  (cond\n    (and (zero? denominator) (>= numerator 0)) Double/POSITIVE_INFINITY)\n    (and (zero? denominator) (neg? numerator)) Double/NEGATIVE_INFINITY)\n    :else (/ numerator denominator)))",
+                                    "uuid": "234549c4-7981-4259-afba-af11a127e2d9",
+                                    "version": 157
+                                }
+                            ],
+                            "uuid": "5a30a264-5f59-4de7-86bd-95f800fab5e1",
+                            "version": 173
+                        }
+                    ],
+                    "uuid": "b9f20a62-dc40-4417-a465-9f582d6040e1",
+                    "version": 175
+                },
+                {
+                    "type": "section",
+                    "source": "condp and case",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "The _condp_ is another way of branching.\n\nForm:\n> ~~~\n(condp pred second-arg\n  first-arg-1  expr1\n  first-arg-2  expr2\n  default-expr)\n~~~\n\nThis is equivalent to:\n> ~~~\n(cond\n  (pred first-arg-1 second-arg)  expr1\n  (pred first-arg-2 second-arg)  expr2\n  :else default-expr)\n~~~",
+                                    "uuid": "39624137-a8a9-4e15-8e50-a630bdc29985",
+                                    "version": 262
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "The _case_ is the simplest case-by-case branching\n\nForm:\n> ~~~\n(case expr-to-test\n  value1  expr1\n  value2  expr2\n  default-expr)\n~~~\n\nThis is equivalent to:\n\n> ~~~\n(condp = expr-to-test\n  value1  expr1\n  value2  expr2\n  default-expr)\n~~~",
+                                    "uuid": "d3e906c1-8fb6-437a-9728-56bf885bc119",
+                                    "version": 287
+                                }
+                            ],
+                            "uuid": "7de57661-e4cc-41b7-84fd-8d0b061a1b19",
+                            "version": 552
+                        }
+                    ],
+                    "uuid": "57c50db5-4d22-4922-841d-00a8678f6f92",
+                    "version": 569
+                }
+            ],
+            "uuid": "9381b9f3-d935-4baf-bc1a-019466b91889",
+            "version": 755
+        }
+    ],
+    "uuid": "f995ad42-364e-486f-85b7-4c60024e9018",
+    "modified": true,
+    "version": 757,
+    "history": 5
+}

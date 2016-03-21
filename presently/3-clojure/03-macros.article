@@ -1,0 +1,617 @@
+{
+    "type": "article",
+    "source": "Macros",
+    "children": [
+        {
+            "type": "page",
+            "source": "Introduction",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Overview of macros\n- Quoting and unquoting\n- Unquote splicing\n- Generating symbols in macros\n- The good and **bad** of macros",
+                                    "uuid": "bcdb9623-c650-496d-9188-02bc128c30ca",
+                                    "version": 301
+                                }
+                            ],
+                            "uuid": "9c4a45e1-242c-4087-b4be-f2e74a0bcb63",
+                            "version": 301
+                        }
+                    ],
+                    "uuid": "791a5385-ee33-4896-9b0c-b5dfdacd7e0f",
+                    "version": 304
+                }
+            ],
+            "uuid": "d377b6b2-f3c1-4223-88ec-60b1c5ab1795",
+            "version": 321
+        },
+        {
+            "type": "page",
+            "source": "Overview of macros",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "Life cycle of Clojure code",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "1. Clojure source = Nested lists\n2. Compilation:\n  > - Macro-expansion:\n  >  > - some of the nested lists are transformed.\n  >  > - the source code is rewritten by itself.\n  > - Compilation\n  > > The rewritten code is converted by machine bytecode.\n3. Runtime:\n  > The bytecode runs.",
+                                    "uuid": "16e68c6f-b55f-45bf-b22f-b4b1f264295c",
+                                    "version": 355
+                                }
+                            ],
+                            "uuid": "8e452114-99a0-43bc-bf9a-f053dc418287",
+                            "version": 355
+                        }
+                    ],
+                    "uuid": "827a5ee4-3806-4c71-a445-c51c3ff8e5e7",
+                    "version": 389
+                },
+                {
+                    "type": "section",
+                    "source": "Example",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 2",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Basic Clojure",
+                                    "uuid": "9b4b6601-79c6-4a46-856d-9d6470d3b78d",
+                                    "version": 78
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: clojure\n......................\n;; teaching about arithmetics\n\n(println \"Code is\" (quote (+ 1 2 (/ 3 4)))\n(println \"Result is\" (+ 1 2 (/ 3 4)))\n\n(println \"Code is\" (quote (* 10 20))\n(println \"Result is\" (* 10 20))",
+                                    "uuid": "2bf7a8e7-a996-4f06-bb0c-0504c2f273cd",
+                                    "version": 227
+                                }
+                            ],
+                            "uuid": "24904de0-8230-4c3a-b7b2-b25a5754016c",
+                            "version": 319
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Let's identify a pattern:\n\n- Arbitray code\n- Print the code to console\n- Print the result of the code.",
+                                    "uuid": "c5804171-5f1f-4f5f-ab0b-bb7e2f88f4f5",
+                                    "version": 144
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "c: wide\n..................\nWould like to have:\n\n~~~\n(teach (+ 1 2 (/3 4))\n(teach (* 10 20))\n~~~",
+                                    "uuid": "14955409-1173-4bf1-b730-9963967dda5b",
+                                    "version": 118
+                                }
+                            ],
+                            "uuid": "1fed770c-a654-400d-b8d9-07157c101018",
+                            "version": 266
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Naive implementation of `teach`:\n\n~~~\n(defn teach [form]\n  (println \"Code is\" form)\n  (println \"Result is\" form))\n~~~",
+                                    "uuid": "4940f17f-3ac2-4bfe-88ce-f5406a437aac",
+                                    "version": 145
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "c: wide\n................\nLet's try it:\n\n~~~\n(teach (* 10 20))\n~~~\n\n> ~~~\nCode is 200\nResult is 200\n~~~\n\nNot working...  Can you explain why not?",
+                                    "uuid": "edc96a20-85cc-4f20-9632-fc99832e2d6f",
+                                    "version": 192
+                                }
+                            ],
+                            "uuid": "2b67b038-10a6-491a-9c8c-3fc72d87a244",
+                            "version": 370
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Proper way of doing it:\n\n- Treat the source code as a nested list.\n  > ~~~\n  (* 10 20)\n  ~~~\n  \n  So, assume we have:\n  > ```\n  (def code (list '* 10 20))\n  ```\n  \n- Do *not* evaluate any part of the code.  Instead, apply a Clojure function **M** to transform the list.\n\n  > ```\n  (M code)\n  ```",
+                                    "uuid": "e973c085-6301-4b5b-bfa5-05c3b746005e",
+                                    "version": 457
+                                }
+                            ],
+                            "uuid": "65be9165-2e1d-4cd5-b784-48f08c233c53",
+                            "version": 458
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- If the implementation `M` is done properly, we hope that `(M code)` generates the (println ...) list we want to write.\n\n- The result of `(M code)` is inserted in place of `(M code)`.",
+                                    "uuid": "fa216e16-e5f4-4fa5-abee-5cd99ec6acb9",
+                                    "version": 371
+                                }
+                            ],
+                            "uuid": "ee82c0c4-ded2-4110-b7e0-705d07de6f06",
+                            "version": 371
+                        }
+                    ],
+                    "uuid": "705449fb-6c5d-48e7-ad85-febde6dac7c9",
+                    "version": 1798
+                },
+                {
+                    "type": "section",
+                    "source": "Elements of macros",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Quoting:\n  > We want a way to recursively quoting a normal Clojure code to suppress evaluation.\n  > ~~~\n  (list '* 10 20)\n  ~~~\n  > can be written as using the backtick quoting\n  >\n  > ~~~\n  `(* 10 20)\n  ~~~",
+                                    "uuid": "dd05c1e1-952c-42d7-81e0-81a5e27c6031",
+                                    "version": 276
+                                }
+                            ],
+                            "uuid": "1afdbc32-6e97-4e8a-9a87-d77f74e3e71b",
+                            "version": 277
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Macro code\n > We need to declare Clojure function `M` to run only as *compilation* stage.  Furthermore, any invocation of `(M ...)` will be replaced by the result of the evaluation of `(M ...)`.\n >\n > ~~~\n (defmacro M [...] ...)\n ~~~",
+                                    "uuid": "a5de94a5-4608-40f8-baf3-528b724a7b59",
+                                    "version": 295
+                                }
+                            ],
+                            "uuid": "2943a552-1f2a-4c91-ad35-0761d2e8b635",
+                            "version": 296
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "It turns out that we need a few more features to implement complex macros.\n\n> 1. Unquoting\n2. Unquote splicing\n3. Symbol generation\n\nThe complexity is due to the fact that the macro body is evaluated during\ncompilation stage, and **NOT** in runtime.",
+                                    "uuid": "80145c57-7faa-4b28-a55c-08a4fa4633ba",
+                                    "version": 389
+                                }
+                            ],
+                            "uuid": "c6099d2d-61c6-4ee6-b279-da27eee12334",
+                            "version": 389
+                        }
+                    ],
+                    "uuid": "6da7407a-5852-4336-a547-7970cbdf1916",
+                    "version": 1022
+                }
+            ],
+            "uuid": "f59e1569-823e-47bd-8231-3877484f2637",
+            "version": 3259
+        },
+        {
+            "type": "page",
+            "source": "Macros",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "Declaring macros",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "~~~\n(defmacro teach [code]\n  ( ... ))\n~~~",
+                                    "uuid": "40a0d05c-1799-4937-82b5-3887ef2055bb",
+                                    "version": 61
+                                }
+                            ],
+                            "uuid": "d2a5ef25-2a1b-448f-96bb-a1cd109009f3",
+                            "version": 62
+                        }
+                    ],
+                    "uuid": "7a1b4ec5-6fac-43ed-8ef0-bd2dcc4ac94e",
+                    "version": 100
+                },
+                {
+                    "type": "section",
+                    "source": "Quoting",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Backtick quote recursively converts an expression to list without evaluating anything.  All symbols are converted to their fully qualified name.\n\n~~~\n`(+ 1 2 (* 3 4))\n~~~\n\nbecomes\n\n~~~\n(clojure.core/+ 1 2 (clojure.core/* 3 4))\n~~~",
+                                    "uuid": "7b7c9cb7-8253-47ca-8007-52783aaa2a3f",
+                                    "version": 274
+                                }
+                            ],
+                            "uuid": "6e463a22-9a42-414f-86c4-41145d060c40",
+                            "version": 274
+                        }
+                    ],
+                    "uuid": "545e3bfb-d9ef-49fc-a7aa-aadf3d275de0",
+                    "version": 284
+                },
+                {
+                    "type": "section",
+                    "source": "Unquoting",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Quoting suppresses evaluation of Clojure forms.\n- Unquoting enables evaluation of Clojure forms in a quoted form.\n\n~~~\n`(+ 1 2 ~(* 3 4))\n~~~\n\nbecomes:\n\n~~~\n`(+ 1 2 12)\n~~~",
+                                    "uuid": "e1621083-5af4-49b0-8017-8ea88a42e38b",
+                                    "version": 228
+                                }
+                            ],
+                            "uuid": "10372efa-9ab6-41ea-beca-5c2265be6d64",
+                            "version": 228
+                        }
+                    ],
+                    "uuid": "4768aeea-4d1f-4714-a737-10e829f94f36",
+                    "version": 242
+                },
+                {
+                    "type": "section",
+                    "source": "Our first macro",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "This macro accepts a list form, and returns a list form.\n\nThe returned list form replaces the `(teach ...)` form.",
+                                    "uuid": "8e4e2c4e-c6c5-48ed-94cc-20caf93ffeaa",
+                                    "version": 135
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: clojure\n........................\n(defmacro teach [code]\n  `(do\n     (println \"Code is\" (quote ~code))\n     (println \"Result is\" ~code)))",
+                                    "uuid": "0d8ba9c9-a5d2-4695-89fd-9412062d2206",
+                                    "version": 169
+                                }
+                            ],
+                            "uuid": "70be3cd7-d3c8-462c-bc5e-f876c90b362e",
+                            "version": 309
+                        }
+                    ],
+                    "uuid": "8a54037f-2635-4272-904d-cacf06b8f53a",
+                    "version": 339
+                },
+                {
+                    "type": "section",
+                    "source": "Bad versions",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Forgetting to unquote the `code` symbol.\n```\n(defmacro teach [code]\n  `(do\n     (println \"Code is\" (quote code))\n     (println \"Result is\" code)))```",
+                                    "uuid": "b99e1bde-bcc2-47a0-bae8-da3aa39c1b35",
+                                    "version": 71
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "What is the evalued form of?\n\n```\n(teach (+ 1 2))\n```\n\nThe result is:\n\n```\n(do\n  (println \"Code is\" (quote code))\n  (println \"Result is\" code)))\n```\n\n*Need to evaluate `code` to `(list + 1 2)`",
+                                    "uuid": "3cd911d0-ecc7-4ec9-b45b-a8c5d4826849",
+                                    "version": 199
+                                }
+                            ],
+                            "uuid": "4ac67f98-05bd-49a0-8be0-cd351e7d5d1c",
+                            "version": 272
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Forgetting to quote.\n```\n(defmacro teach [code]\n  `(do\n     (println \"Code is\" (quote ~code))\n     (println \"Result is\" ~code)))\n```",
+                                    "uuid": "a6b7d78b-6628-4cd4-831b-7f032ca0f33d",
+                                    "version": 43
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "What is the evaluated form of?\n\n```\n(teach (+ 1 2))\n```\n\nThe result is:\n\n```\n(do\n  (println \"Code is\" (+ 1 2))\n  (println \"Result is\" (+ 1 2)))\n```\n\nThis results in the output:\n\n> ~~~\n> Code is 3\n> Result is 3\n> ~~~",
+                                    "uuid": "0ba305dd-6ef7-4dca-a3ec-41e79e248615",
+                                    "version": 239
+                                }
+                            ],
+                            "uuid": "08e988b6-cbde-49bc-bf19-235964ce3083",
+                            "version": 285
+                        }
+                    ],
+                    "uuid": "f9a82dff-d108-4e6a-8b35-163155116d92",
+                    "version": 571
+                },
+                {
+                    "type": "section",
+                    "source": "Recursive macro expand",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Macros can return an expression that itself has more macro calls.\n- Clojure recursively expands all the macros.",
+                                    "uuid": "c60ac9e2-fde8-4794-a14c-bb16901b424d",
+                                    "version": 166
+                                }
+                            ],
+                            "uuid": "84c4f242-b530-4211-a944-d84a026b682e",
+                            "version": 169
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "# Example: infix",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "> Consider a macro that converts all infix operator invocation to Clojure expressions.\n\n```\n(1 + 2) => (+ 1 2)\n```\n",
+                                    "uuid": "66897182-7571-434c-986d-344e2102e9a2",
+                                    "version": 159
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: clojure\n......................\n(defmacro infix [expr]\n  (let [[a op b] expr]\n    (list op a b)))\n    \n(infix (1 + 2))\n;; => 3",
+                                    "uuid": "a6a2994f-3462-4658-a652-9d0172b5272f",
+                                    "version": 160
+                                }
+                            ],
+                            "uuid": "1c44742c-0a0e-41ba-b1a3-1134b9a4f97a",
+                            "version": 349
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- What about `(infix 1)`?\n- What about `(infix ((1 + 2) * (3 + 4)))`",
+                                    "uuid": "b4579316-6479-423f-98ea-ec96fecf393f",
+                                    "version": 95
+                                }
+                            ],
+                            "uuid": "1b253a54-b12f-4cb9-b68b-f12e16fe295e",
+                            "version": 98
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 2",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "A recurive formulation of `infix` macro.\n\n- If the expression is a list with three elements,\n  change it the order, and recursively apply\n  `infix` to the operands.\n- Otherwise, return the expression as is.",
+                                    "uuid": "8dfce625-64e9-49e2-9400-93ba614b2e71",
+                                    "version": 360
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: clojure\n....................\n(defmacro infix [code]\n  (if (list? code)\n    (condp = (count code)\n      3 (let [[a op b] code] \n          `(~op (infix ~a) (infix ~b)))\n      code)\n    code))",
+                                    "uuid": "ca575d0e-a44a-4160-92fb-73eb059208e7",
+                                    "version": 46
+                                }
+                            ],
+                            "uuid": "362e90c8-78be-4d50-bddf-df1d9739c329",
+                            "version": 422
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "c: banner\n...............\nHint: use _macroexpand_ to fully expand an expression.  Use _macroexpand-1_ to expand the most outer macro of an expression.",
+                                    "uuid": "044c6819-5408-4108-897f-b008e50133ce",
+                                    "version": 158
+                                }
+                            ],
+                            "uuid": "0cfec6c1-5629-48bb-af7a-229b611333b6",
+                            "version": 158
+                        }
+                    ],
+                    "uuid": "bbc0147f-f44d-42fd-ae62-7148b3e5529c",
+                    "version": 1253
+                },
+                {
+                    "type": "section",
+                    "source": "Unquote splicing",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "Let `expr = (a b c)`.  Consider how `expr` can be used in a macro definition.",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "\n1. As normal\n\n > ~~~\n(f expr) \n;; => (f (a b c)) \n;; => evaluate function f\n~~~\n\n2. In a quoted form: `expr` stays as a symbol `expr`.\n\n > ~~~\n`(f expr)\n;; => (f expr)\n~~~\n\n",
+                                    "uuid": "159f8a8a-522c-4c15-adcf-2a1ca5216675",
+                                    "version": 562
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "3. In a quoted form, unquoted:\n  > ~~~\n  `(f ~expr)\n  ;; => (f (a b c))\n  ~~~\n  \n4. In a quoted form, unquoted spliced:\n  > ~~~\n  `(f ~@expr)\n  ;; => (f a b c)\n  ~~~",
+                                    "uuid": "87688c7e-bb39-4276-858b-d729abf6833f",
+                                    "version": 5
+                                }
+                            ],
+                            "uuid": "0eb29dec-0f85-44ab-98d0-959efe0dfa45",
+                            "version": 577
+                        }
+                    ],
+                    "uuid": "05cdb94e-19f1-46d0-bc5e-e1d1ccdd7ed0",
+                    "version": 604
+                },
+                {
+                    "type": "section",
+                    "source": "Example",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "`do-reverse` macro:\n\n> ~~~\n(do (println \"hello\")\n    (println \"world\"))\n;; \"hello\"\n;; \"world\"\n~~~\n\n> ~~~\n(do-reverse (println \"hello\")\n    (println \"world\"))\n;; \"world\"\n;; \"hello\"\n~~~",
+                                    "uuid": "74737acc-af9c-43a4-908e-fd2ee5cc05fd",
+                                    "version": 189
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: clojure\n......................\n(defmacro do-reverse [& args]\n  (let [args (reverse args)]\n  \t`(do ~@args)))\n    \n(macroexpand-1 \n\t'(do-reverse \n    \t(println 1) \n        (println 2)))\n;; => (do (println 2) (println 1))",
+                                    "uuid": "0e140d1a-cdee-4d8c-918a-af481c893bf5",
+                                    "version": 169
+                                }
+                            ],
+                            "uuid": "8e79b05b-dc08-4141-b46d-1dffcb9bb04e",
+                            "version": 390
+                        }
+                    ],
+                    "uuid": "909307a6-de66-40aa-b992-c9e96baacd53",
+                    "version": 399
+                },
+                {
+                    "type": "section",
+                    "source": "Generate symbols",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Sometimes, the generated code may contain `(let [...] ...)`, namely symbol bindings.\n > ~~~\n (defmacro print-twice-run-once [expr]\n     `(let [x ~expr]\n         (print x)\n         (print x)))\n (print-twice-run-once (+ 1 1))\n ~~~\n \n- This won't work.\n  > All symbols in the generated code must have generated names.",
+                                    "uuid": "d445afcd-6c45-405f-8021-82734c3ed1bb",
+                                    "version": 548
+                                }
+                            ],
+                            "uuid": "268ac148-2b7d-490b-b5b6-48b51ad3da89",
+                            "version": 551
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- We can generate a new symbol using `(gensym)`\n- Or we can use a special form `x#`",
+                                    "uuid": "9b397704-b794-43fa-ba18-1b9bea2c7799",
+                                    "version": 91
+                                }
+                            ],
+                            "uuid": "fa0a04bc-fc77-4664-bd08-a98ea87e98bb",
+                            "version": 92
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "code",
+                                    "source": "lang: clojure\n.....................\n(defmacro print-twice-run-once [expr]\n  (let [x (gensym)]\n    `(let [~x ~expr]\n        (println ~x) (println ~x))))",
+                                    "uuid": "e4cdd30b-1a83-4a67-a6a6-f49fbf3c0775",
+                                    "version": 171
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: clojure\n.......................\n(defmacro print-twice-run-once [expr]\n   `(let [x# ~expr]\n       (println x#) (println x#))))",
+                                    "uuid": "b7e03380-6fc8-4f82-af99-48453a4ace31",
+                                    "version": 48
+                                }
+                            ],
+                            "uuid": "9f770da1-aeb3-487c-9384-1fdcf89c35b6",
+                            "version": 227
+                        }
+                    ],
+                    "uuid": "e6512f6a-8c31-4b21-baf9-56d0f13acc80",
+                    "version": 895
+                },
+                {
+                    "type": "section",
+                    "source": "Challege",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Can you implement a macro:\n\n`(do-return-first expr1 expr2 ...)`\n\n- It runs all the expressions, just once.\n- Returns the value of the first expression.",
+                                    "uuid": "67365fe3-d6eb-491e-a50f-5747b5996a1e",
+                                    "version": 166
+                                }
+                            ],
+                            "uuid": "01727888-472f-444b-b38c-3de9fc444ac7",
+                            "version": 166
+                        }
+                    ],
+                    "uuid": "1bfb979a-9b84-423f-984e-359c0e9dde14",
+                    "version": 176
+                }
+            ],
+            "uuid": "38e10c81-41ee-445d-8553-62ef1aac6409",
+            "version": 4906
+        }
+    ],
+    "uuid": "5a32a108-8f0d-440b-8842-6783df73b774",
+    "modified": true,
+    "version": 8504,
+    "history": 6
+}

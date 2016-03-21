@@ -1,0 +1,642 @@
+{
+    "type": "article",
+    "source": "Getting Started with Clojure",
+    "children": [
+        {
+            "type": "page",
+            "source": "About",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "c: center narrow\n..................\nIn this section, we will provide sufficient material for you to get started with running Clojure on your local environment.\n\n\n- Install Clojure & tools\n- A simple Clojure compiler script\n- Basic Clojure syntax\n- Elements of Clojure",
+                                    "uuid": "225ffad9-641b-472c-9311-b41500062de9",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "615140c9-92f5-4ef0-9812-6d7620fdab5b",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "30634552-1fb4-4584-a114-fe223bcb018a",
+                    "version": 0
+                }
+            ],
+            "uuid": "14a98781-fae2-410f-ad3f-2d9ffa39eb3a",
+            "version": 0
+        },
+        {
+            "type": "page",
+            "source": "Installation",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "Download",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 3 1",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Standardlone Clojure compiler [direct link to .jar](http://central.maven.org/maven2/org/clojure/clojure/1.7.0/clojure-1.7.0.jar)\n- Leiningen:\n  > Follow the instruction on http://leiningen.org/\n- Boot:\n  > Yet another project build tool: https://github.com/boot-clj/boot\n  >\n  > Great for Clojurescript related development.",
+                                    "uuid": "aa318c9e-e77f-43bc-9644-ccdf2d80e72c",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "css:\n  color: blue\n..............\nWe are going to assume a very simple _standalone_ Clojure environment for most of the course.",
+                                    "uuid": "ad7ce1c5-d0ae-4dc2-8771-79bda8a50e06",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "af05662c-b773-400b-9f84-d2e13bcb8a3f",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "a9753d47-4157-43ca-b69a-9e25f29d1da5",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "Setting up standalone Clojure tool",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Get the standalone .jar file, and save it to somewhere permanent.\n~~~\nwget http://central.maven.org/maven2/org/clojure/clojure/1.7.0/clojure-1.7.0.jar\nmv clojure-1.7.0.jar $HOME/bin/clojure-1.7.0.jar\n~~~\n",
+                                    "uuid": "fa4394a0-1a68-4c0f-aca4-76d4e8c04338",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "20c1b16b-1a24-42cc-a771-f27b2fc00be1",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Get `rlwrap` to make the REPL console experience pleasant.\n\n~~~\nsudo apt-get install rlwrap\n~~~",
+                                    "uuid": "e37e5a55-32e9-4b11-bc2b-c5add4dba02f",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "c5be9cb1-e70c-4b57-851e-6c9d3b8c4c7e",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Write a simple script to make it easy:\n\n`$HOME/bin/clj`\n> ~~~\n#!/bin/bash\nrlwrap java -jar $HOME/bin/clojure-1.7.0.jar $*\n~~~",
+                                    "uuid": "a9803a8e-f752-458a-83f1-81ac95d0b905",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "8d761566-d6e9-445d-b586-015a3874d961",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "377c7137-be1f-4cbe-835c-e60876f14526",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "Hello world",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "\n<span class=\"filename\">hello.clj</span>\n\n~~~\n(doall\n  (for [i (range 3)]\n    (println \"Hello world:\" i)))\n~~~",
+                                    "uuid": "f2745022-cddc-46f9-adf5-cc0b188f75d1",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "1. Create the file `hello.clj`\n2. Try out our little Clojure command:\n   ~~~\n   clj ./hello.clj\n   ~~~\n3. You should see the expected output:\n   ~~~\n   Hello world: 0\n   Hello world: 1\n   Hello world: 2\n   ~~~",
+                                    "uuid": "e461370d-3b34-4f0a-a670-3f3cd13d258f",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "29b7840b-2e9e-443d-80d1-3d1bc1694d3d",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "87417891-ea7f-4222-9d99-f2499c6e5207",
+                    "version": 0
+                }
+            ],
+            "uuid": "c9d22d25-13b0-4f16-a0b7-a82df4a24abb",
+            "version": 0
+        },
+        {
+            "type": "page",
+            "source": "Data in Clojure",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "Scalar",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Numbers: \n\n> ~~~\n10.0\n123\n3.1415\n~~~\n\n",
+                                    "uuid": "5ece749e-9324-4e5c-9fa8-a6c7bbde7a2e",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "String\n\n> ~~~\n  \"Hello world\"\n  ~~~\n  \nCharacter:\n\n> ~~~\n  \\a\n  ~~~",
+                                    "uuid": "89d18966-825d-475d-955b-824b06e361d5",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "Keywords\n\n> ~~~\n:red\n~~~\n\nSymbols (with namespace)\n\n> ~~~\n'name\n'csci3055u.a2/name\n~~~",
+                                    "uuid": "43b9ea79-894e-4835-8438-50431fc26f4b",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "967f16f1-14e9-405b-9e43-86e4afa92a89",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "8f58caa5-622f-449d-9c4e-01d8d009d510",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "Functions as Data",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Existing functions\n\n> ~~~\n  + - for if count size >! >!! swap!\n  ~~~\n  and 900+ others.\n\n",
+                                    "uuid": "2e565287-e130-4a3d-828e-d9404f9f8708",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "User defined functions\n\n> ~~~\n(fn [ ARG ] BODY)\n~~~\n\nShort-hand for anonymous functions\n> ~~~\n#( BODY )\n~~~",
+                                    "uuid": "96fffb45-64c9-4b9a-ba51-a1ddc33db26c",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "ce0d6af1-e4b6-44e0-9851-219666d3ba01",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Some useful definitions:\n\n- Arity of a function is the number of inputs it accepts.\n- A vardic function is a function that can have more than one arity.",
+                                    "uuid": "ae766562-43a0-42cc-aa28-c9501bc030a1",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "197823cf-5343-4812-ab6a-0598000a6319",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "30bf98a2-c993-4353-8101-c005ca5b7735",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "Collections",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "w: 1 1 0",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Vectors\n> ~~~\n[1 2, \"hello\"]\n~~~\n\nList\n> ~~~\n'(1, 2 \"hello\")\n~~~\n\nSet\n> ~~~\n#{1 2 3}\n~~~",
+                                    "uuid": "348abae9-4dfc-45d8-82fa-9ba32c0e24a1",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "Map\n> ~~~\n{:name \"Jack\" :age 42 \"Another Field\" [1,2,3]}\n~~~",
+                                    "uuid": "9d5b4ec2-7dc6-4ebc-aabb-47b37ec29d7e",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: clojure\n.................\n;; Name better formatted\n{:name           \"Jack\"\n :age            42\n \"Another Field\" [1 2 3]}",
+                                    "uuid": "aae8b26f-d92e-40a9-b97e-a22ef867d570",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "3aefffb1-12a2-498a-b534-a64d045ba975",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "99c7e75f-62f9-477a-893b-87ce463c2feb",
+                    "version": 0
+                }
+            ],
+            "uuid": "f38813db-3c3e-4df4-bb0e-813456e6696c",
+            "version": 0
+        },
+        {
+            "type": "page",
+            "source": "Elements of Programming",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "Symbols and bindings",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- *Symbols* are placeholders for data (which includes functions).\n- Declare a symbol without binding:\n  > `(declare x)`\n- Bind a symbol to something:\n  > `(def x EXPRESSION)`\n",
+                                    "uuid": "57e2e138-6386-4ef0-9cc8-6652d700135c",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "- A _namespace_ is a collection of symbols.\n  > \n  ```\n  (ns csci3055u.a2)\n  (def solution ...)\n  ```\n  \n- In another namespace, we need to import a namespace before accessing its symbols:  **NOTE THE quote** used in _require_.\n  > ~~~\n  (ns csci3055u.a3)\n  (require 'csci3055u.a2)\n  (println csci3055u.a2/solution)\n  ~~~\n\n- There are lots of ways of importing symbols for the sake of readability and convenience.",
+                                    "uuid": "5a7a8c74-03fa-4a14-8875-acf821174967",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "1d3b2dc4-4048-48e9-912b-5a882c21032a",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "81193d40-8c01-4b0d-a232-00435c616dac",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "Function evaluation",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Functions compute.\n- Data store.\n- New data is created by evaluating a function on some input data.\n\n> ~~~\n(f x y z)\n~~~",
+                                    "uuid": "2ca35427-d8a4-4e2a-aa78-8b928e90a795",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "4e498203-a083-495b-beef-3415116a09e7",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "ab32d1c2-cdae-403a-9e7d-90af58945b85",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "Data as functions",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "c: wide\n...................\nVectors are functions mapping index integer to entry values.\n  > ~~~\n  (def x [\"hello\" \"world\"])\n  (x 1)                     ; \"world\"\n  ~~~\n  \n",
+                                    "uuid": "231c3085-8022-4e4d-bf4e-86ad2d5da211",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "d821fe24-e5c3-4319-826f-03fddef16864",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "c: wide\n...................\nMaps are functions mapping keys to values.\n  > ~~~\n  (def x {:a 100 :b 200})\n  (x :b)                    ; 200\n  ~~~",
+                                    "uuid": "76a61c87-fc51-4063-8bb7-c8dc6f985eb0",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "10360852-8db3-4263-a196-ede8ebc4d69f",
+                            "version": 0
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "c: wide\n...................\nKeywords are functions.\n\n> Er?.  Yes, a keyword `:k` can take maps as input, and lookup the value for the key `:k`.\n\n> ~~~\n(def x {:a 100 :b 200})\n(:b x)\n~~~",
+                                    "uuid": "2b1d995a-4e4a-41f8-b50c-b32bbd70db0f",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "a11d0d2b-9231-4ea5-ad76-485188717a58",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "84f402e4-c18a-49e2-92b1-b85073d07a11",
+                    "version": 0
+                }
+            ],
+            "uuid": "c49ef2c6-00db-4da2-9325-f9aa27b0ffee",
+            "version": 0
+        },
+        {
+            "type": "page",
+            "source": "Higher Order Functions",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "About",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "> <note/> Higher order functions are functions that take other functions as input, and/or return functions.\n",
+                                    "uuid": "5d07cf56-d89e-41e3-9eb5-f16426dde637",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "ea291d18-9ad2-467f-ac2b-8ceaebd003a2",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "ed4b5040-f337-4de7-b25a-afa285a49d36",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "Apply",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "Input to _apply_:\n1. A function f\n2. A collection `[x y z ...]`\n\n",
+                                    "uuid": "38c5081a-f5bb-485b-a68d-c3627949089c",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "`(apply f [x y z ...])`\n\n> evaluates to the evaluation of `(f x y z ...)`.\n\n- Build up the arguments.\n- Build up the function.\n- Then invoke the function whenever we are ready.",
+                                    "uuid": "0a7eeb4a-0fc9-4398-9aaa-bfcb675ffdec",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "a64e582f-4bc1-4d20-84e4-c02e38792b4b",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "5f848a1d-2bdf-49b2-b884-5e0c53745cb3",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "math:\n..................\nComposition",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Composition is a well known way of chaining two functions together.\n  > 1. $f(x)$ is to double x.\n  > 2. $g(x)$ is to increment x.\n  > \n  > Then we can compose them by applying one after another.\n  \n- Order of composition is important:\n  > - $(f \\circ g)(x) = (x + 1) \\times 2 = 2 \\times x + 2$\n  > - $(g \\circ f)(x) = (x \\times 2) + 1 = 2 \\times x + 1$\n  \n",
+                                    "uuid": "40fd07e2-0d47-4730-870b-cb352063c19c",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "Clojure's higher order function `comp`.\n\nInput:\n> Any number of functions `(comp f g h)`\n\nOutput:\n> The composed function:\n> ~~~\n((comp f g h) x) == (f (g (h x)))\n~~~",
+                                    "uuid": "82edd77f-b9d4-4bda-b341-299d2ceb355e",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "f2ed6f34-d969-4b4d-896d-42a89149bc2d",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "59daa871-6ee4-4c8d-8083-daf5655fe5b4",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "math:\n...............\nPartial",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "divide: 1\n...........\n",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "`(partial f x y z ...)`\n\nInput:\n> 1. A function with arity of $n$\n2. $m$ more arguments, where $m \\leq n$\n\nOutput:\n> A function that performs the same computation as `f`, except it only needs $n-m$ inputs.",
+                                    "uuid": "2f7cac53-86a1-4af9-8074-c21e234b8f99",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "code",
+                                    "source": "lang: clojure\n.................\n(defn add-four-things [x y u v]\n  (+ x y u v))\n  \n;; Partials\n(def add-two-things\n  (partial add-four-things 0 0))\n  \n(def add-two-things-to-100-200\n  (partial add-four-things 100 200))",
+                                    "uuid": "711bf5a4-13e1-4286-a905-470f902c61c3",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "2b6c9f4d-c614-4fab-8944-02553154c468",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "4f3a0807-d4d3-47f6-a0e6-63100212da1e",
+                    "version": 0
+                }
+            ],
+            "uuid": "d9f2bbc6-6357-434b-9304-c5629f482ef8",
+            "version": 0
+        },
+        {
+            "type": "page",
+            "source": "Sequences",
+            "children": [
+                {
+                    "type": "section",
+                    "source": "Importance of sequences",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Sequences are _everywhere_.\n  > - Vector\n  > - Arrays\n  > - List\n  > - Map\n  > - Regular expression matching\n\n- Clojure has 900+ core functions.\n  > 50% operate on sequences.",
+                                    "uuid": "e244679e-beb7-43bd-9674-2c47f3c01b5c",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "ecdda050-3b49-449c-a44c-e21404ad9410",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "893fcf35-5d01-47c6-8b53-a467d2718f6a",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "The becoming of sequence",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- `(seq x)`\n  > Constructing a sequence out of `x`.\n  \n- `(line-seq rdr)`\n  > Construct a sequence of lines from a file reader.\n  \n- `(re-seq re string)`\n  > Constructs a sequence by searching for all occurrences of a regular expression in a string.\n  \n- `(range n)`\n  > A sequence starting at 0...",
+                                    "uuid": "e21cc731-9b42-47a0-bb7d-dd5a5ab4a4b2",
+                                    "version": 0
+                                },
+                                {
+                                    "type": "markdown",
+                                    "source": "- `(repeat x)`\n  > A sequence of `x x x x x ...` forever.\n- `(iterate f x)`\n  > A sequece of `x f(x) f(f(x)) f(f(f(x))) ...`\n- `(repeatedly f)`\n  > A sequence of `(f) (f) (f) ...`\n- `(keys m)`\n  > A sequence with the keys of a map.\n- `(vals m)`\n  > A sequence with the values of a map.",
+                                    "uuid": "bbf86ef0-c249-40a7-8b20-c911e3ef936b",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "77714eff-226b-4d59-b856-fb1e3f48c814",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "df69c215-4dc3-4aae-aee7-5861de5edc04",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "Adding & removing elements",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- `(conj coll x1 x2 ...)`\n  > _Conjoin_: Adding `x`s to the collection.  This function does not modify `coll`, but returns a new _enlarged_ collection.\n  \n- `(cons x seq)`\n  > Adding `x` to the front of `seq`.\n  \n- `(rest seq)`\n  > Get rid of the first element, and return the rest of the sequence.",
+                                    "uuid": "a52002e8-c416-4742-8472-59d1bc76eb95",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "ae22c191-6598-46fe-965b-9e806920035f",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "b879b6e8-9c40-4f6c-8fb7-aae26dd2ac19",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "Map & Reduce",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- `(map f coll)`\n  > Evaluates `f` on each element in the collection.\n  > \n  > With `coll` being `x1 x2 ...`, return `f(x1) f(x2) ...`\n  \n- `(map-indexed f coll)`\n  > Returns `f(0,x1)  f(1,x2)  ...`\n  \n- `(reduce f v0 coll)`\n  > - `coll` has `x1 x2 x3 ...`\n  > - `f(f(f(v0, x1), x2), x3)` etc.\n  > - Another variation `(reduce f coll)`: uses `x0` as the initial value.\n",
+                                    "uuid": "69f40bf0-8e5a-45c6-ae09-917fb3853ee2",
+                                    "version": 0
+                                }
+                            ],
+                            "uuid": "0f6985fc-2d14-44cc-8bc6-e42557720afe",
+                            "version": 0
+                        }
+                    ],
+                    "uuid": "7a5dd279-4753-42d5-868d-21b49329edde",
+                    "version": 0
+                },
+                {
+                    "type": "section",
+                    "source": "Taking from a sequence",
+                    "children": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "source": "",
+                            "children": [
+                                {
+                                    "type": "markdown",
+                                    "source": "- Sequences can be infinite.\n- `take n coll`\n  > Takes the first `n` elements from the collection.\n- `take-while pred coll`\n  > - `(pred x)` is evaluated on each element `x` in `coll`.\n  > - takes elements from `coll` until `(pred x)` becomes false.\n- `drop n coll`\n  > Returns a new collections by removing the first `n` elements from `coll`.\n- `drop-while pred coll`\n  > Keeps dropping while `(pred x)` is true.\n",
+                                    "uuid": "33a417b2-a683-4e29-92c9-80e235382376",
+                                    "version": 522
+                                }
+                            ],
+                            "uuid": "928b96c1-eb9a-4f5c-89f5-5887371a5bd1",
+                            "version": 524
+                        }
+                    ],
+                    "uuid": "4fd307d1-fe42-46af-9593-0d068d209cf4",
+                    "version": 524
+                }
+            ],
+            "uuid": "d0855b1e-03d7-4e15-bb84-448c0b4137af",
+            "version": 524
+        }
+    ],
+    "uuid": "d88c41c9-9e94-47be-9d52-05bda72db4e0",
+    "modified": true,
+    "version": 524,
+    "history": 6
+}
